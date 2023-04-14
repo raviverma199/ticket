@@ -1,0 +1,159 @@
+
+<%- include('../Views/left') %>
+    <style>
+        .btn-check:focus+.btn,
+        .btn:focus {
+            outline: 0;
+            box-shadow: 0 0 0 0 rgba(255, 241, 241, 0.25);
+        }
+        .dropdown {
+            text-align: justify;
+            padding-left: 30px;
+        }
+        #buttons {
+            text-align: end;
+            padding-left: 10px;
+        }
+        @media only screen and (max-width: 600px) {
+            #buttons {
+                text-align: center;
+            }
+        }
+    </style>
+    <div class="container-fluid" style="margin-top: 40px;">
+
+        <div class="row  bg-light py-2" style="border:1px solid rgb(251, 249, 249)">
+            <div class="col-lg-6" id="dropdown">
+
+                <div class="dropdown">
+
+                    <!-- <input type="checkbox"> -->
+                    <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 14.7px; letter-spacing: 1px;">
+                        <b>Callback (01)</b>
+                    </button>
+                    <i class="fa-sharp fa-solid fa-filter px-2" style="font-size: 15px;"></i>
+                    <i class="fa-solid fa-wifi px-3"></i>
+
+
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="col-lg-6" id="buttons">
+
+                <div class="dropdown12">
+
+                    <button class="btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false"
+                        style=" font-size: 14px; width: 28%;height: 33px;">
+
+                        <i class="fa-solid fa-sliders"></i>
+                        Classic View
+                    </button>
+
+                    <button class="btn btn-outline-dark"
+                        style="height: 30px; text-align: center; width: 34px;padding: 0px; height: 34px;"><i
+                            class="fa-solid fa-ellipsis"></i></button>
+
+                    <button class="btn btn-outline-dark"
+                        style="height: 30px; text-align: justify; width: 30px; height: 35px;"><b>i</b></button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="container-fluid mt-2" style="background-color: white;border-radius: 6px;">
+        <div class="row">
+            <div class="col-lg-6">
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-2" style="font-size: 18px;padding: 23px 0px 0px 30px;"><b><i class="fa-solid fa-envelope" style="font-size:20px;"></i></b></div>
+        <div class="col-lg-6 py-3" style="font-size: 13px;"><b>Here's is your first Ticket</b>
+
+        #101&nbsp;&nbsp;&nbsp;.Lawrence&nbsp;&nbsp;&nbsp;.Zoho&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-coin"></i>6 Days ago
+        </div>
+    </div>
+</div>
+
+            </div>
+            <div class="col-lg-6 justify-content-end d-flex" style="padding-top: 15px;">
+
+                <div style="height: 25px;padding: 2px;font-size: 13px; width: 16%;" class="btn btn-outline-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Closed
+                </div>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                  </ul>
+                  
+
+                  <i class="fa-sharp fa-solid fa-message px-4 pt-1" style="font-size: 16px;"></i>
+                  <i class="fa-sharp fa-solid fa-shield-halved px-2 pt-1" style="font-size: 17px;"></i>
+                  <b style="font-size: 17px; padding-left: 25px;">YM</b>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function (event) {
+
+            const showNavbar = (toggleId, navId, bodyId, headerId) => {
+                const toggle = document.getElementById(toggleId),
+                    nav = document.getElementById(navId),
+                    bodypd = document.getElementById(bodyId),
+                    headerpd = document.getElementById(headerId)
+
+                // Validate that all variables exist
+                if (toggle && nav && bodypd && headerpd) {
+                    toggle.addEventListener('click', () => {
+                        // show navbar
+                        nav.classList.toggle('show')
+                        // change icon
+                        toggle.classList.toggle('bx-x')
+                        // add padding to body
+                        bodypd.classList.toggle('body-pd')
+                        // add padding to header
+                        headerpd.classList.toggle('body-pd')
+                    })
+                }
+            }
+
+            showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header')
+
+            /*===== LINK ACTIVE =====*/
+            const linkColor = document.querySelectorAll('.nav_link')
+
+            function colorLink() {
+                if (linkColor) {
+                    linkColor.forEach(l => l.classList.remove('active'))
+                    this.classList.add('active')
+                }
+            }
+            linkColor.forEach(l => l.addEventListener('click', colorLink))
+
+            // Your code to run since DOM is loaded and ready
+        });
+    </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>

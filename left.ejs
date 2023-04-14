@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./static/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+
+  </script>
+
+  <title>Document</title>
+
+
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/all.min.css">
+  <script src="../js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="../css/fontawesome.min.css">
+  <script src="../ajax/ajax.js"></script>
+
+  <script src="//code.tidio.co/poclc5jcmwsnbpmhrjlgtg0xtv0gddte.js" async></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+
+
+
+  </link>
+</head>
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
+
+  * {
+    margin: 0px;
+    padding: 0px;
+  }
+
+  :root {
+
+    --header-height: 1rem;
+    --nav-width: 62px;
+    --first-color: #002244;
+    --first-color-light: #AFA5D9;
+    --white-color: #F7F6FB;
+    --body-font: 'Nunito', sans-serif;
+    --normal-font-size: 13px;
+    --z-fixed: 100
+  }
+
+  * ::before,
+  ::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    position: relative;
+    /* margin: var(--header-height) 0 0 0; */
+    padding: 0 1rem;
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+    transition: .5s;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .header {
+    width: 100%;
+    height: var(--header-height);
+    position: fixed;
+    top: 0;
+    left: 0;
+    justify-content: space-between;
+    background-color: #002244;
+    /* z-index: var(--z-fixed); */
+    transition: .5s
+  }
+
+  .header_toggle {
+    color: var(--first-color);
+    font-size: 1.5rem;
+    cursor: pointer
+  }
+
+  .header_img {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    /* border-radius: 50%; */
+    overflow: hidden;
+  }
+
+  .header_img img {
+    width: 40px
+  }
+
+  .l-navbar {
+    position: fixed;
+    top: 0;
+    left: -30%;
+    width: var(--nav-width);
+    height: 100vh;
+    background-color: var(--first-color);
+    padding: .5rem 1rem 0 0;
+    transition: .5s;
+    z-index: var(--z-fixed);
+
+  }
+
+  .nav1 {
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden
+  }
+
+  .nav_logo,
+  .nav_link {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    align-items: center;
+    column-gap: 1.5rem;
+    padding: .5rem 0 .3rem .8rem
+  }
+
+  .nav_logo {
+    margin-bottom: 2rem
+  }
+
+  .nav_logo-icon {
+    font-size: 1.25rem;
+    color: var(--white-color)
+  }
+
+  .nav_logo-name {
+    color: var(--white-color);
+    font-weight: 700
+  }
+
+  .nav_link {
+    position: relative;
+    color: var(--first-color-light);
+    margin-bottom: 1.3rem;
+    transition: .3s
+  }
+
+  .nav_link:hover {
+    color: var(--white-color)
+  }
+
+  .nav_icon {
+    font-size: 1.25rem
+  }
+
+  .show {
+    left: 0
+  }
+
+  .body-pd {
+    padding-left: calc(var(--nav-width) + 1rem)
+  }
+
+  .active {
+    color: var(--white-color)
+  }
+
+  .active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 2px;
+    height: 30px;
+    background-color: var(--white-color);
+
+  }
+
+
+  @media screen and (min-width: 768px) {
+    body {
+      margin: calc(var(--header-height) + 1rem) 0 0 0;
+      padding-left: calc(var(--nav-width) + 1rem)
+    }
+
+    .header {
+      height: calc(var(--header-height) + 1.4rem);
+      padding: 0 2rem 0 calc(var(--nav-width) + 2rem)
+    }
+
+    .header_img img {
+      width: 10px
+    }
+
+    .l-navbar {
+      left: 0px;
+      padding: 2rem 1rem 0 0
+    }
+
+    .showww {
+      width: calc(var(--nav-width) + 156px);
+    }
+
+    .body-pd {
+      padding-left: calc(var(--nav-width) + 1px);
+
+
+    }
+  }
+</style>
+<style>
+  .sidenav1 {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    right: 0;
+    z-index: 1;
+    top: 0;
+    background-color: white;
+    overflow-y: scroll;
+    overflow-x: scroll;
+    transition: 0.5s;
+    padding-top: 18px;
+  }
+
+  .sidenav1 a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    transition: 0.3s;
+  }
+
+  .sidenav1 a:hover {
+    color: #f1f1f1;
+  }
+
+  .sidenav1 .closebtn {
+    position: absolute;
+
+    top: 0px;
+    right: 25px;
+    font-size: 34px;
+    margin-left: 50px;
+
+  }
+
+  @media screen and (max-height: 450px) {
+    .sidenav1 {
+      padding-top: 15px;
+    }
+
+    .sidenav1 a {
+      font-size: 18px;
+    }
+  }
+
+  #toggle {
+    width: 28px;
+    height: 30px;
+    margin: 10px auto;
+  }
+
+  #toggle div {
+    width: 100%;
+    height: 5px;
+    background: white;
+    margin: 4px auto;
+    transition: all 0.3s;
+    backface-visibility: hidden;
+  }
+
+  #toggle.on .one {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  #toggle.on .two {
+    opacity: 0;
+  }
+
+  #toggle.on .three {
+    transform: rotate(-45deg) translate(7px, -8px);
+  }
+
+  #menu {
+    position: fixed;
+    top: 50px;
+    width: 100% !important;
+    color: white;
+    border: 1px solid white;
+    background-color: #AFA5D9;
+    height: 100px;
+    padding: 10px;
+    border-radius: 3px;
+    font-family: "Segoe UI", Candara, "Bitstream Vera Sans", "DejaVu Sans", "Bitstream Vera Sans", "Trebuchet MS", Verdana, "Verdana Ref", sans-serif;
+    line-height: 100px;
+    text-align: center;
+    margin: auto;
+    display: none;
+  }
+</style>
+
+
+<body style="background-color: #efeef2;">
+
+  <body id="body-pd">
+    <header class="header p-0 m-0" id="header" style="position: fixed; top: 0px;z-index: 1000 !important; width: 100%;">
+      <div class="header_toggle" style="color: white;">
+
+        <div class="container-fluid p-0">
+          <div class="row">
+            <div class="col-lg-1"> <a href="#"><i class="fa-solid fa-phone"
+                  style="color: white; position: absolute; top: 16px; left:20px;font-size: 15px;"></i></a></div>
+            <div class="col-lg-5 col-sm-12" style="padding: 0px;">
+              <div class="navbar" id="nab" style="padding-top: 10px;">
+                <!-- <a href="/ticket" id="ticket" style="color: white;font-size: 13px;"> Tickets</a> -->
+                <a href="/customers" id="nab" style="color: white;font-size: 13px;">ToDo List</a>
+                <a href="/analytics" id="nab" style="color: white;font-size: 13px;">Analytics</a>
+                <a href="/close_ticket" id="nab" style="color: white;font-size: 13px;">Close Ticket's</a>
+                <!-- <a href='/chat' id="nab" style="color: white;font-size: 15px;">Chat</a> -->
+
+                <i class='fa-solid fa-bars' id="header-toggle" style="color: white;font-size: 14px;"></i>
+              </div>
+            </div>
+
+            <!-- modal -->
+            <!-- Button trigger modal -->
+
+            <div class="col-lg-6 pt-2" id="manthan" data-bs-toggle="modal" data-bs-target="#exampleModal"
+              style="background-color: #002244; color: white;font-size: 12.7px;padding: 0px 0px 0px 100px;">
+              ManthanitSolutions
+              <!-- modal-closed -->
+
+              <button class="btn btn-info "
+                style="width: 33px; text-align: center;background-color: #0066b2;margin-left: 22px; border: white;color: white; padding: 0px 0px 0px 7px; height: 25px;border-radius: 4px;">
+                <b style=" padding-right: 8px;" id="myBtn">+</b>
+              </button>
+
+
+              <!-- The Modal -->
+              <div id="myModal" class="modal">
+
+                <!-- Modal content -->
+                <div class="modal-content">
+                  <span class="close">&times;</span>
+
+                </div>
+
+              </div>
+
+              <i class="fa-solid fa-magnifying-glass px-4 pt-1" style="font-size: 15px;" id="faa"></i>
+              <i class="fa-solid fa-file  px-4" style="font-size: 15.6px;color: rgb(255, 235, 123);" id="fa"></i>
+
+
+
+              <div id="mySidenav1" class="sidenav1">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+                <!-- ###################  sidenav ################-->
+
+                <div class="container py-2" style="background-color:#e8ffe9;">
+                  <div class="row">
+                    <div class="col-lg-4 mx-2 pt-3"
+                      style="height:65px;padding-left: 20px;color: black; background-color: rgb(234, 234, 234);border-radius: 5px;font-size: 25px;">
+                      <b>YM</b>
+                      <button class="btn btn-outline-secondary" style="font-size: 11px;margin-top: 38px;"><i
+                          class="fa-regular fa-user" style="font-size: 12px;color: black"></i>profile</button>
+
+                    </div>
+
+
+                    <div class="col-lg-7" style="color: black;font-size: 12px;color: rgb(68, 68, 68);"><b>Yogendra
+                        ManthanitSolutions</b><br>
+                      <b></b>Yogendra<br>
+                      <b style="font-size: 11px;">Support Administor</b><br>
+                      User ID :60019545066<br>
+                      <div class="row">
+
+                        <div class="col-lg-12">
+
+                          <button class="btn btn-outline-secondary mt-3" style="font-size: 12px;">MIS Account</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="container">
+                  <div class="row">
+                    <div class="col-lg-12 mt-2" style="font-size: 12px; color: black;"><b>MY AVAILABILITY</b></div>
+                  </div>
+                </div>
+                <!--  -->
+                <div class="container px-3">
+                  <div class="row">
+                    <div class="col-lg-6 px-2 mt-2" style="color: black;font-size: 14px;"><i
+                        class="fa-regular fa-envelope px-3 mt-2" style="color: black;font-size: 15px;"></i>Email</div>
+                    <div class="col-lg-6 d-flex justify-content-center">
+                      <div class="dropdown-toggle  mt-2" type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                        style="color: black;font-size: 13px;padding-top: 5px;">
+                        Online
+                      </div>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#" style="font-size: 15px;">Action</a></li>
+                        <li><a class="dropdown-item" href="#" style="font-size: 15px;">Another action</a></li>
+                        <li><a class="dropdown-item" href="#" style="font-size: 15px;">Something else here</a></li>
+                      </ul>
+
+                    </div>
+                  </div>
+                </div>
+                <!--  -->
+
+                <!--  -->
+                <div class="container py-2" style="border-bottom: 1px solid rgb(195, 195, 195);">
+                  <div class="row">
+                    <div class="col-lg-6 px-2" style="color: black;font-size: 14px;"><i
+                        class="fa-regular fa-comment px-3 mt-2" style="color: black;font-size: 14px;"></i>Chat</div>
+                    <div class="col-lg-6 d-flex justify-content-center">
+                      <div class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                        style="color: black;font-size: 13px;padding-top: 5px;">
+                        Online
+                      </div>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#" style="font-size: 15px;">Action</a></li>
+                        <li><a class="dropdown-item" href="#" style="font-size: 15px;">Another action</a></li>
+                        <li><a class="dropdown-item" href="#" style="font-size: 15px;">Something else here</a></li>
+                      </ul>
+
+                    </div>
+                  </div>
+                </div>
+                <!--  -->
+
+                <div class="container mt-2 py-2" style="color: black; font-size: 13px;">
+                  <div class="col-lg-12"><i class="fa-solid fa-pencil px-2" style="font-size: 13px;"></i> prefrences<br>
+                  </div>
+                  <div class="col-lg-12 mt-3"><i class="fa-regular fa-globe px-2" style="font-size: 13px;"></i>
+                    portals<Br></div>
+                  <div class="col-lg-12 mt-3"><i class="fa-solid fa-question px-2" style="font-size: 13px;"></i>
+                    Help<Br></div>
+                  <div class="col-lg-12 mt-3"><i class="fa-solid fa-mobile-retro px-2" style="font-size: 13px;"></i>
+                    Mobile App<br></div>
+                  <div class="col-lg-12 mt-3"><i class="fa-solid fa-bullhorn px-2" style="font-size: 13px;"></i> What's
+                    new<br></div>
+                  <div class="col-lg-12 mt-3" style="border-bottom: 1px solid rgb(167, 167, 167);"><i
+                      class="fa-brands fa-bitcoin px-2" style="font-size: 13px;"></i> Refer & earn<br></div>
+                </div>
+
+                <!--  -->
+                <div class="container mt-1" style="color: black; font-size: 14px;">
+                  <div class="row">
+                    <div class="col-lg-8"><i class="fa-regular fa-building px-2"
+                        style="font-size: 14px;"></i><b>Enterprise</b>
+                      <p style="font-size: 11px;padding-left: 10px;">Trial expires in 10 days</p>
+                    </div>
+
+                    <div class="col-lg-4  justify-content-start"><button class="btn btn-info"
+                        style="font-size: 11px;padding-bottom: 22px; height:20px;margin-top: px;">Upgrade</button></div>
+                  </div>
+                </div>
+                <!--  -->
+
+                <div class="container">
+                  <div class="row">
+                    <div class="col-lg-5" style="font-size: 13px;color: rgb(24, 126, 210);"><b>Extend Trial</b></div>
+                    <div class="col-lg-7" style="font-size: 13px;color: rgb(24, 126, 210);"><b>. Trial Other
+                        editions</b></div>
+                  </div>
+                  <div class="col-lg-12 mt-3" style="color: red;font-size: 15px;  "><i
+                      class="fa-solid fa-right-from-bracket px-2" style="color: red;font-size: 14px;"></i>
+                    Signout
+                  </div>
+                </div>
+
+
+
+
+
+                <!-- ###################  sidenav ################-->
+
+              </div>
+              <i class="fa-regular fa-user px-4 pt-1" style="font-size: 15.6px; padding-left: 80px;" onclick="openNav()"
+                id="fa"></i>
+              <i class="fa-solid fa-gear px-4" style="font-size: 16px; padding-left: 0px;"></i>
+              <!-- <i class="fa-solid fa-qrcode px-3" style="font-size: 16.7px; padding-left: 0px;" id="fa4"></i> -->
+              <a href="/logout"><i class="fa-solid fa-right-to-bracket px-1"
+                  style="font-size: 16.7px;color: white;"></i></a>
+
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <script>
+        function openNav() {
+          document.getElementById("mySidenav1").style.width = "250px";
+        }
+
+        function closeNav() {
+          document.getElementById("mySidenav1").style.width = "0";
+        }
+      </script>
+
+
+    </header>
+    <div class="l-navbar" id="nav-bar">
+      <nav class="nav1">
+        <div> <a href="#" class="nav_logo">
+
+          </a>
+          <div class="nav_list"> <a href="/page" class="nav_link active">
+              <i class='fa-solid fa-boxes-stacked nav_icon' style="font-size: 15px;"></i>
+              HQ
+              <span class="nav_name" style="font-size: 11px;" id="hq">HQ</span></a>
+            <a href="/views" class="nav_link">
+              <i class="fa-solid fa-file" style="font-size: 17px;padding-left: 8px;color: white;"></i>
+              Views
+              <span class="nav_name" style="color: white; font-size: 11px;" id="views">Views</span> </a>
+            <a href="/agent_queue" class="nav_link">
+
+              <i class="fa-solid fa-person" style="font-size: 21px;padding-left: 7px;color: white;"></i>
+              Agent Queue
+              <span class="nav_name" style="color: white; font-size: 10px;" id="agent">Agent<br>Queue</span> </a>
+            <a href="/team_queue" class="nav_link">
+              <i class="fa-solid fa-share-nodes" style="font-size: 17px;padding-left: 6px;color: white;"></i>
+              Team Queue
+              <span class="nav_name" style="font-size: 10px;" id="team">Team<br>Queue</span>
+            </a> <a href="/tags" class="nav_link">
+              <i class="fa-solid fa-tag" style="font-size: 16px;padding-left: 7px;color: white;"></i>
+              Tags
+              <span class="nav_name" style="color: white; font-size: 11px;" id="tags">Tags</span>
+            </a>
+          </div>
+        </div> <a href="#" class="nav_link"> <i class="fa-solid fa-right-from-bracket"
+            style="font-size: 17.7px;padding-left: 4px;"></i> <span class="nav_name">Close</span> </a>
+      </nav>
+    </div>
+
+
+    <div class="container-fluid  py-2 text-end" id="na"
+      style="font-size: 10px;position: fixed;bottom: 0px;background-color: #002244;z-index: 2 !important; color: white;right: 0px;">
+      <i class="fa-regular fa-copyright px-2" style="font-size: 10px;color: white;"></i>
+      Designed by Manthan IT Solutions , &nbsp;INC All right reserved
+
+    </div>
+
+
+
+
+
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function (event) {
+
+        const showNavbar = (toggleId, navId, bodyId, headerId) => {
+          const toggle = document.getElementById(toggleId),
+            nav = document.getElementById(navId),
+            bodypd = document.getElementById(bodyId),
+            headerpd = document.getElementById(headerId)
+
+          // Validate that all variables exist
+          if (toggle && nav && bodypd && headerpd) {
+            toggle.addEventListener('click', () => {
+              // show navbar
+              nav.classList.toggle('showww')
+              // change icon
+              toggle.classList.toggle('bx-x')
+              // add padding to body
+              bodypd.classList.toggle('body-pd')
+              // add padding to header
+              headerpd.classList.toggle('body-pd')
+            })
+          }
+        }
+
+        showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header')
+
+        /*===== LINK ACTIVE =====*/
+        const linkColor = document.querySelectorAll('.nav_link')
+
+        function colorLink() {
+          if (linkColor) {
+            linkColor.forEach(l => l.classList.remove('active'))
+            this.classList.add('active')
+          }
+        }
+        linkColor.forEach(l => l.addEventListener('click', colorLink))
+
+        // Your code to run since DOM is loaded and ready
+      });
+    </script>
+
+    <script>
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          initMap(position.coords.latitude, position.coords.longitude)
+
+
+          GetAddress(position.coords.latitude, position.coords.longitude)
+        },
+        function errorCallback(error) {
+          console.log(error)
+        }
+      );
+      function initMap(lat, lng) {
+        var myLatLng = {
+          lat,
+          lng
+        };
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 50,
+          center: myLatLng
+        });
+
+        var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map,
+        });
+
+
+      }
+
+
+      function GetAddress(lat, lng) {
+        var lat = parseFloat(lat);
+        var lng = parseFloat(lng);
+        var latlng = new google.maps.LatLng(lat, lng);
+        var geocoder = geocoder = new google.maps.Geocoder();
+        geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            if (results[1]) {
+              var address = results[1].formatted_address
+              updateData(address, lat, lng)
+              console.log(lat, lng)
+
+            }
+          }
+        });
+      }
+    </script>
+
+
+    <script>
+      $("#toggle").click(function () {
+        $(this).toggleClass("on");
+        $("#menu").slideToggle();
+      });
+    </script>
+
+
+    <script>
+      $(document).ready(function () {
+        $("#header-toggle").click(function () {
+          $('#hq').hide();
+        });
+      });
+
+      $(document).ready(function () {
+        $("#header-toggle").click(function () {
+          $('#teamfeed').hide();
+        });
+      });
+      $(document).ready(function () {
+        $("#header-toggle").click(function () {
+          $('#views').hide();
+        });
+      });
+      $(document).ready(function () {
+        $("#header-toggle").click(function () {
+          $('#agent').hide();
+        });
+      });
+      $(document).ready(function () {
+        $("#header-toggle").click(function () {
+          $('#team').hide();
+        });
+      });
+      $(document).ready(function () {
+        $("#header-toggle").click(function () {
+          $('#tags').hide();
+        });
+      });
+
+
+      $(document).ready(function () {
+        $("#ticket").click(function () {
+          $("#ticket").css({ "border-bottom": "white" });
+        });
+      });
+    </script>

@@ -1,0 +1,149 @@
+<%- include('../Views/left') %>
+
+
+    
+        <style>
+            .text-end {
+                text-align: end !important;
+            }
+
+            .py-3 {
+                padding-top: 1rem !important;
+                padding-bottom: 1rem !important;
+                padding-left: 1rem !important;
+            }
+
+            @media (min-width: 992px) {
+                .col-lg-5 {
+                    flex: 0 0 auto;
+                    width: 41.66666667%;
+                }
+            }
+            @media (max-width:550px){
+                .py-3{
+                    padding-top: 2rem!important;
+                }
+            }
+
+            .row>* {
+                flex-shrink: 0;
+                /* width: 100%;
+                max-width: 100%; */
+                padding-right: calc(var(--bs-gutter-x) * .5);
+                padding-left: calc(var(--bs-gutter-x) * .5);
+                margin-top: var(--bs-gutter-y);
+            }
+            @media screen and (max-height: 995px)  and (min-height  :602px){
+  #top {
+    margin-left: 0px;
+    padding-right: 40px;
+padding-top: 0px;
+    margin-top: 40px;
+  } 
+}
+@media screen and(max-height:450px){
+    #top{
+        margin-top: 100px;
+    }
+}
+
+            *,
+            ::after,
+            ::before {
+                box-sizing: border-box;
+            }
+        </style>
+
+        <div class="container-fluid " style=" background-color: rgb(246, 244, 244); margin-top: 20px; ">
+            <div class="row"  id="top">
+                <div class="col-lg-5 py-2 text-start" style="margin-left:50px; border: none;">
+
+                    <button class="btn btn-outline- dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 14px; width: 100px; height: 45px; border: none; color: black; font-weight: bold;">
+                        <i class=" fa fa-star px-2"></i> Customer Responded Tickets
+                    </button>
+
+                </div>
+                <div class="col-lg-6 py-3 text-end">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                        style="font-size: 13px; width: 160px; height: 33px; ">
+                        <i class="fa-solid fa-user px-1"></i> Countdown Mode </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                          </ul>
+
+                    <button class="btn btn-outline-dark" style=" text-align: center; padding:0px 0px 0px 0px; width: 30px; height: 33px;"><b><i class="fa-sharp fa-solid fa-bell" style="font-size: 14px;"></i></b></button>
+            
+                    <button class="btn btn-outline-dark"
+                        style="height: 30px; text-align: center; width: 10px; height: 32px;"><b>i</b></button>
+                </div>
+            </div>
+
+        </div>
+        <div class="container-fluid" style="width:100%; background-color: rgb(223, 232, 243); height:fit-content;" >
+            <div class="" style="display:flex;justify-content: center; flex-direction: column; padding-top: 180px; padding-bottom:247px ; text-align: center;" >        
+                  <i class="fa fa-ticket" aria-hidden="true" style="font-size:50px"></i>
+               
+                <b  style="padding-top: 10px;">No Tickets to show</b>
+                <span>There are currently no Tickets in this view</span>
+                <p >
+                    <a class="" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"  style="text-decoration: none;" >
+                      Learn more about tickets views
+                    </a>
+                  </p >
+                  <div class="collapse" id="collapseExample">
+                    <div class="card card-body"  style="background-color: rgb(223, 232, 243);border: none;"   >
+                      Some placeholder content for the collapse component.<br> This panel is hidden by default but revealed when<br> the user activates the relevant trigger.
+                    </div>
+                  </div>
+                  
+
+
+  
+        </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function (event) {
+        
+              const showNavbar = (toggleId, navId, bodyId, headerId) => {
+                const toggle = document.getElementById(toggleId),
+                  nav = document.getElementById(navId),
+                  bodypd = document.getElementById(bodyId),
+                  headerpd = document.getElementById(headerId)
+        
+                // Validate that all variables exist
+                if (toggle && nav && bodypd && headerpd) {
+                  toggle.addEventListener('click', () => {
+                    // show navbar
+                    nav.classList.toggle('show')
+                    // change icon
+                    toggle.classList.toggle('bx-x')
+                    // add padding to body
+                    bodypd.classList.toggle('body-pd')
+                    // add padding to header
+                    headerpd.classList.toggle('body-pd')
+                  })
+                }
+              }
+        
+              showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header')
+        
+              /*===== LINK ACTIVE =====*/
+              const linkColor = document.querySelectorAll('.nav_link')
+        
+              function colorLink() {
+                if (linkColor) {
+                  linkColor.forEach(l => l.classList.remove('active'))
+                  this.classList.add('active')
+                }
+              }
+              linkColor.forEach(l => l.addEventListener('click', colorLink))
+        
+              // Your code to run since DOM is loaded and ready
+            });
+          </script>
+        
+
+    <%- include('../Views/footer') %>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>close ticket</title>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+</head>
+<style>
+    .enquiry_table th {
+        border: .5px solid black;
+        padding: 8px;
+        text-align: center;
+        font-size: 14px;
+        background-color: #008d71;
+        color: white;
+    }
+
+    .enquiry_table td {
+        border: .5px solid grey;
+        padding: 10px;
+        text-align: center;
+        background-color: rgb(255, 255, 255);
+        font-size: 13px;
+    }
+
+    label {
+        font-size: 15px;
+    }
+</style>
+
+<body>
+
+    <%- include('../Views/left') %>
+        <div class="container-fluid py-2 mt-5" style="background-color: white;border-radius: 5px;font-size: 17.8px;">
+            <i class="fa-solid fa-ticket px-3" style="font-size: 16px;"></i>Close Ticket
+        </div>
+
+        <div class="container-fluid mt-3 py-3"
+            style="border-radius: 7px;overflow: auto;background-color: white;border-top:3px solid  #294785;font-size: 15px;">
+            Today Date - ( <span id="currentDate"></span> )<br><br>
+            <table class="enquiry_table" width="100%" id="close">
+                <thead>
+                    <tr>
+                        <th>S.no</th>
+                        <th>User Name</th>
+                        <th>Email ID</th>
+                        <th>Ticket Number</th>
+                        <th>Issue date</th>
+                        <th>closed date</th>
+                        <th>Status</th>
+                        <th>History</th>
+                    </tr>
+                </thead>
+        </div>
+
+        <script>
+
+            $.ajax({
+                type: "GET",
+                dataType: "JSON",
+                url: `/ticketing`,
+                success: function (data) {
+                    for (var i = 0; i < data.result1.length; i++) {
+                        $('#close').append(`
+                        <tbody>
+                                <tr id=>
+                                    <td>
+                                        ${i + 1}
+                                    </td>
+                                    <td>
+                                        ${data.result1[i].user_name}
+                                    </td>
+                                    <td>
+                                        ${data.result1[i].email}
+                                    </td>
+                                    <td>
+                                        #${data.result1[i].ticket_no}
+                                    </td>
+                                    <td>
+                                        ${data.result1[i].issue_date}
+                                    </td>
+                                    <td>${data.result1[i].closed_date}</td>
+                                    <td><button class="btn btn-danger"
+                                            style="width: 63%;height: 23px;padding: 0px; font-size: 12px;">
+                                            closed
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <a href="/chat/${data.result1[i].user_name}/${data.result1[i].email}/${data.result1[i].ticket_no}/${data.result1[i].ip_address}"><i
+                                          class="fa-sharp fa-solid fa-eye" style="font-size: 15px;"></i></a>
+                                    </td>
+                                </tr>
+                        
+                        </tbody>
+                    </table>`);
+
+                    }
+                }
+            });
+        </script>
+
+
+
+        <script>
+
+            let today = new Date();
+            let currentDate = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+            document.getElementById("currentDate").innerHTML = currentDate;
+
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function (event) {
+
+                const showNavbar = (toggleId, navId, bodyId, headerId) => {
+                    const toggle = document.getElementById(toggleId),
+                        nav = document.getElementById(navId),
+                        bodypd = document.getElementById(bodyId),
+                        headerpd = document.getElementById(headerId)
+
+                    // Validate that all variables exist
+                    if (toggle && nav && bodypd && headerpd) {
+                        toggle.addEventListener('click', () => {
+                            // show navbar
+                            nav.classList.toggle('show')
+                            // change icon
+                            toggle.classList.toggle('bx-x')
+                            // add padding to body
+                            bodypd.classList.toggle('body-pd')
+                            // add padding to header
+                            headerpd.classList.toggle('body-pd')
+                        })
+                    }
+                }
+
+                showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header')
+
+                /*===== LINK ACTIVE =====*/
+                const linkColor = document.querySelectorAll('.nav_link')
+
+                function colorLink() {
+                    if (linkColor) {
+                        linkColor.forEach(l => l.classList.remove('active'))
+                        this.classList.add('active')
+                    }
+                }
+                linkColor.forEach(l => l.addEventListener('click', colorLink))
+
+                // Your code to run since DOM is loaded and ready
+            });
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
+            integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
+            crossorigin="anonymous"></script>
+</body>
+
+</html>

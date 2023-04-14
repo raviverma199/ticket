@@ -1,0 +1,534 @@
+<%- include('../Views/left') %>
+
+
+
+
+  <style>
+    .btn-check:focus+.btn,
+    .btn:focus {
+      outline: 0;
+      box-shadow: 0 0 0 0 rgba(255, 241, 241, 0.25);
+    }
+
+    .dropdown {
+      text-align: justify;
+      padding-left: 30px;
+
+
+    }
+
+    #buttons {
+      text-align: end;
+      padding-left: 10px;
+
+    }
+
+    .card {
+      border-radius: 10px;
+      box-shadow: 0px 0px 5px skyblue;
+    }
+
+    @media only screen and (max-width: 1100px) {
+      .col-md-4 {
+        padding-top: 10px;
+      }
+    }
+
+
+    #blue {
+      background-color: rgba(85, 215, 255, 0.097);
+      border-top: 2px solid rgb(12, 36, 251);
+    }
+
+    #orange {
+      border-top: 2px solid rgb(255, 94, 0);
+      background-color: rgba(255, 166, 0, 0.173);
+    }
+
+    #green {
+      border-top: 2px solid green;
+      background-color: rgba(144, 238, 144, 0.415);
+    }
+
+    .col-lg-6 {
+      padding-top: 10px;
+    }
+
+    .last {
+      padding: 0px;
+      box-shadow: 0px 0px 4px rgb(72, 71, 71);
+      border-radius: 10px;
+      box-shadow: none;
+    }
+
+    .end {
+      padding-top: 0px;
+    }
+
+
+
+    hr:not([size]) {
+      height: 0px;
+    }
+
+
+
+    #myChart {
+
+
+      height: 300px !important;
+      padding: 20px !important;
+
+    }
+
+    /* @media only screen and(max-width:400px) {
+      #mychart {
+
+        width: 100%;
+        height: 200px;
+      }
+    } */
+
+    .svg {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+    }
+
+
+
+    /* .col-xl-4{
+   
+  
+  
+     padding-right: calc(var(--bs-gutter-x)/ 2); 
+     padding-left: calc(var(--bs-gutter-x)/ 2); 
+    } */
+
+    .circle {
+      height: 50%;
+      width: 50%;
+      border: 6px solid gray;
+      border-radius: 50%;
+      text-align: center;
+      padding-top: 65px;
+      margin-top: 30px;
+    }
+
+    @media only screen and(max-width:1000px) {
+      .circle {
+        width: 0px;
+        height: 0px;
+      }
+    }
+
+    @media only screen and (max-width: 988px) and (min-width: 500px) {
+      .circle {
+        width: 24%;
+        height: 65%;
+        border-radius: 50%;
+      }
+    }
+
+    /* .hour {
+    margin-top: 10px;
+  } */
+
+    @media only screen and (max-width:768px) {
+      .hour {
+        margin-top: 120px;
+      }
+    }
+  </style>
+  </head>
+
+  <body>
+
+    <div class="container-fluid mt-5">
+
+      <div class="row  bg-light py-1" style="border:1px solid rgb(251, 249, 249)">
+        <div class="col-md-6 col-lg-6 col-xl-6 " col-xl-6 id="dropdown">
+
+          <div class="dropdown">
+
+            <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+              aria-expanded="false" style="font-size: 14px; letter-spacing: 1px;padding: 0px 0px 0px 0px;">
+              <b>Overview Dashboard</b>
+            </button>
+            <button class="btn " style=" height:38px"><i
+                class="fa-solid fa-arrow-up-right-and-arrow-down-left-from-center" style="color:black"></i></button>
+
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </div>
+
+        </div>
+        <div class=" col-md-6 col-lg-6 col-xl-6" id="buttons">
+          <button class="btn btn-outline-dark" style="padding: 0px; width: 34px; height: 36px;"><i
+              class="fa-solid fa-ellipsis"></i></button>
+
+          <button class="btn btn-outline-dark" style="padding: 0px; width: 34px; height: 36px;"><b>i</b></button>
+
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="container-fluid">
+      <div class="row py-3" style="box-shadow: 0px 0px 5px rgb(214, 214, 214); background-color: aliceblue;">
+
+
+        <div class="col-xl-2 col-lg-3 col-md-4">
+          <div class="card" style="height: 4.5rem;">
+            <div class="card-body">
+              <h6 class="card-title" style="font-size: 15px;">Open Ticket </h6>
+              <h6 class="card-subtitle mb-2 text-muted"></h6>
+              <h6 class="card-text">1</h6>
+
+            </div>
+          </div>
+        </div>
+
+
+
+
+        <div class="col-xl-2 col-lg-3 col-md-4">
+          <div class="card" style=" height: 4.5rem;">
+            <div class="card-body">
+              <h6 class="card-title" style="font-size: 15px;">Hold ticket</h6>
+              <h6 class="card-subtitle mb-2 text-muted"></h6>
+              <h6 class="card-text">0</h6>
+            </div>
+          </div>
+        </div>
+
+
+
+
+        <div class="col-xl-2 col-lg-3 col-md-4">
+          <div class="card" style="height: 4.5rem;">
+            <div class="card-body">
+              <h6 class="card-title" style="font-size: 15px;">Overdue Ticket</h6>
+              <h6 class="card-subtitle mb-2 text-muted"></h6>
+              <h6 class="card-text" style="color:red">1</h6>
+
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="col-lg-3 col-md-4 col-xl-2">
+          <div class="card" style="height: 4.5rem;">
+            <div class="card-body">
+              <h6 class="card-title" style="font-size: 15px;">Due Today </h6>
+              <h6 class="card-subtitle mb-2 text-muted"></h6>
+              <h6 class="card-text">0</h6>
+
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="col-lg-3 col-md-4 col-xl-2">
+          <div class="card" style="height: 4.5rem;">
+            <div class="card-body">
+              <h6 class="card-title" style="font-size: 15px;">Unassigned due in</h6>
+              <h6 class="card-subtitle mb-2 text-muted"></h6>
+              <h6 class="card-text">1</h6>
+
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="col-lg-3 col-md-4 col-xl-2">
+          <div class="card" style="height: 4.5rem;">
+            <div class="card-body">
+              <h6 class="card-title" style="font-size: 15px;">Unassigned Ticket </h6>
+              <h6 class="card-subtitle mb-2 text-muted"></h6>
+              <h6 class="card-text">1</h6>
+
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-lg-11"
+          style="background-color: rgb(255, 255, 255); margin-top: 30px; box-shadow: 0px 0px 2px rgb(185, 183, 183); height: 50px; line-height: 4px;width: 98%;margin-left: 11px;">
+          <h5 style="font-size: 17px;padding-top: 14px;">Ticket Stats</h5>
+        </div>
+        <div class="row  lastrow"
+          style="background-color: white; width: 98%; margin-left: 10px; box-shadow: 0px 0px 2px gray; padding: 14px; ">
+          <div class="col-lg-6 col-md-12 col-xl-3">
+            <div class="card" style="height: 3.4rem;" id="blue">
+              <div class="card-body" style="display: flex;">
+                <h5 class="card-title" style="padding: 0px;">2</h5>
+                <h6 class="card-subtitle mb-2 text-muted" style="line-height: 30px;margin-left: 10px;font-size: 14px;">
+                  New Ticket
+                  (Total)
+                </h6>
+                <h5 class="card-text"></h5>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-md-12 col-xl-3">
+            <div class="card" style="height: 3.4rem;" id="orange">
+              <div class="card-body" style="display: flex;">
+                <h5 class="card-title" style="padding: 0px;"> 7</h5>
+                <h6 class="card-subtitle mb-2 text-muted" style="line-height: 30px;margin-left: 10px;font-size: 14px;">
+                  On Hold
+                  Ticket(Total)</h6>
+
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-lg-6 col-md-12 col-xl-3">
+            <div class="card" style="height: 3.4rem;" id="green">
+              <div class="card-body" style="display: flex;">
+                <h5 class="card-title" style="padding: 0px;">4</h5>
+                <h6 class="card-subtitle mb-2 text-muted" style="line-height: 30px;margin-left: 10px;font-size: 14px;">
+                  Closed
+                  Ticket(Total)</h6>
+
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-lg-6 col-md-12 col-xl-3">
+            <div class="card" style="height: 3.4rem;" id="">
+              <div class="card-body" style="display: flex; ">
+                <h5 class="card-title" style="padding: 0px;">1</h5>
+                <h6 class="card-subtitle mb-2 text-muted" style="line-height: 33px;margin-left: 10px;font-size: 14px;">
+                  Backlog
+                  Ticket(average)</h6>
+              </div>
+            </div>
+          </div>
+          <div class="container-fluid  chart">
+
+            <canvas id="myChart" style="width:100%;height: 300px;"></canvas>
+          </div>
+
+
+
+        </div>
+
+        <!-- <div class="row" style="background-color: white; width: 98%; margin-left: 10px; box-shadow: 0px 0px 2px gray; padding: 20px; "> -->
+
+        <div class="col-xl-4 p-1 col-lg-4 mt-2" style="padding-top:10px;z-index: 1 !important;margin-bottom: 23px;">
+          <div class="card  last" style="height: 22rem;" id="">
+            <div class="card-body end">
+              <div class="row " style="box-shadow: 0px 0px 2px gray;">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6"><b style="font-size: 15.7px;">Traffic
+                    Analysis</b>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6" style="border-radius: 7px;">
+                  <div class="dropdown  drop1  "
+                    style=" display: flex ; justify-content: end;text-align: end;padding-left: 160px;">
+                    <button class="btn  dropdown-toggle" style="padding-top: 0px;" type="button" id="dropdownMenuButton"
+                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span> <i class="fa fa-circle-dot" style=" color: rgb(249, 215, 150);"></i>
+                        Donut</span>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="#">Action</a>
+                      <a class="dropdown-item" href="#">Another action</a>
+                      <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <hr class="card-title ">
+              </h4>
+              <h6 class="card-subtitle mb-2 text-muted"></h6>
+
+              <!-- 
+                 <div class="container  circle">
+                    <h2>1 </h2>
+                 </div> -->
+              <div class="svg">
+                <svg height="200" width="200">
+                  <circle cx="100" cy="100" r="90" stroke="#abd4f8" stroke-width="5" fill="white" />
+
+
+                  <text x="100" y="100" text-anchor="middle" stroke="#abd4f8" stroke-width="2px"
+                    alignment-baseline="middle">0
+                  </text>
+
+
+                </svg>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-4 p-1 col-lg-4 mt-2" style="padding-top:10px">
+          <div class="card  last" style="height: 22rem;" id="">
+            <div class="card-body end">
+
+
+              <div class="row " style="box-shadow: 0px 0px 2px gray;">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6"><b style="font-size: 15px;">Average Handling
+                    Time</b></div>
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                  <div class="dropdown  drop1 "
+                    style=" display: flex ; justify-content: end;text-align: end;padding-left: 160px;">
+                    <button class="btn  dropdown-toggle" style="padding-top: 0px;" type="button" id="dropdownMenuButton"
+                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span style="font-size: 14.5px;"> <i class="fa fa-square-poll-horizontal"
+                          style="color: wheat;"></i>
+                        HorizontalBar</span>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="#">Action</a>
+                      <a class="dropdown-item" href="#">Another action</a>
+                      <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class=" container-fluid d-flex "
+                style="justify-content: space-between;padding-top: 40px; border-bottom: 4px solid #abd4f8; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px;">
+                <h6>first Response Time</h6>
+                <span style="justify-content: end;">00:00</span>
+
+              </div>
+
+              <div class=" container-fluid d-flex "
+                style="justify-content: space-between;padding-top: 30px; border-bottom: 4px solid #abd4f8; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px;">
+                <h6>first Response Time</h6>
+                <span style="justify-content: end;">00:00</span>
+
+              </div>
+              <div class=" container-fluid d-flex "
+                style="justify-content: space-between;padding-top: 30px; border-bottom: 4px solid #abd4f8; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px;">
+                <h6>first Response Time</h6>
+                <span style="justify-content: end;">00:00</span>
+              </div>
+
+
+
+
+
+
+
+            </div>
+            <div class="footer p-0 m-0"
+              style="box-shadow: 0px 0px 2px  rgb(164, 164, 164); border-radius: 5px; position: relative; width:100%;height: 50px;">
+
+
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-4 p-1 col-lg-4  mt-2" style="padding-top:8px">
+          <div class="card last" style="height: 22rem;" id="">
+            <div class="card-body   end">
+              <div class="row " style="box-shadow: 0px 0px 2px gray;">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6"><b style="font-size: 14px;">Happiness Rate</b>
+                </div>
+
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                  <div class="dropdown  drop1  "
+                    style=" display: flex ; justify-content: end;text-align: end;padding-left: 160px;">
+                    <button class="btn  dropdown-toggle" style="padding-top: 0px;" type="button" id="dropdownMenuButton"
+                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fa fa-list" style="color: wheat;font-size: 13px;"></i> Donut
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="#">Action</a>
+                      <a class="dropdown-item" href="#">Another action</a>
+                      <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+
+              <hr class="card-title">
+              </h4>
+              <h6 class="card-subtitle mb-2 text-muted"></h6>
+              <!-- <div class="container circle">
+              <h2>1 </h2> -->
+              <div class="svg">
+                <svg height="200" width="200">
+                  <circle cx="100" cy="100" r="90" stroke="#abd4f8" stroke-width="5" fill="white" />
+
+                  <text x="100" y="100" text-anchor="middle" stroke="#abd4f8" stroke-width="2px"
+                    alignment-baseline="middle">0
+                  </text>
+
+
+
+                </svg>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+    <!-- </div> -->
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+      const ctx = document.getElementById('myChart');
+
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: [11 + 'AM', 12 + 'PM', 1 + 'PM', 2 + 'PM', 3 + 'PM', 4 + 'PM', 5 + 'PM', 6 + 'PM', 7 + 'PM', 8 + 'PM', 9 + 'PM', 10 + 'PM', 11 + 'PM', 12 + 'AM'],
+          datasets: [{
+            label: '# of Votes',
+            data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            borderWidth: 3,
+          }]
+        },
+
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  </body>
+
+  </html>

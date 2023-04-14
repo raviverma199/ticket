@@ -1,0 +1,484 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chatbot</title>
+    <link rel="stylesheet" href="./static/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <script
+src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+</script>
+</head>
+<body style="background-color: #efeef2;">
+<!-- ######################  navbar ######################### -->
+<div class="container-fluid"  style="position: fixed; top: 0px;"> 
+    <div class="row">
+    <div class="col-lg-8 col-sm-12"  style="padding: 0px;" >   
+<div class="navbar" id="nab">
+    <a href="#"  id="side"> Tickets</a>
+    <a href="#" style="border-bottom: 3px solid white;" id="nab"> Tickets</a>
+    <a href="#" id="nab">Knowledge Base</a>
+    <a href="#" id="nab">Community</a>
+    <a href="#" id="nab">Customer</a>
+    <a href="#" id="nab">Analytics</a>
+    <a href="#" id="nab">Activities</a>
+    <a href="#" id="nab">Social</a>
+    <a href="#" id="nab">Chat</a>
+    <a href="#" style="padding-right: 90px;"><i class="fa-solid fa-bars"></i></a>
+  </div>    
+</div>
+
+
+<div class="col-lg-4 px-3 " style="background-color: #002244; color: white;font-size: 11.5px;padding: 5px;">ManthanitSolutions
+    <button class="btn btn-info dropdown-toggle px-0"  type="button"  id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 45px; text-align: center; padding: 0px 0px 0px 20px; height: 23px;">
+        +
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="#">Action</a>
+        <a class="dropdown-item" href="#">Another action</a>
+        <a class="dropdown-item" href="#">Something else here</a>
+      </div>
+      <i class="fa-solid fa-magnifying-glass px-5" style="font-size: 17px;" id="faa"></i>
+      <i class="fa-solid fa-file "  style="font-size: 17px;"  id="fa"></i>
+      <i class="fa-solid fa-r px-4"  style="font-size: 16px; padding-left: 80px;"  id="fa"></i>
+      <i class="fa-solid fa-grid" style="font-size: 17px; padding-left: 0px;"  id="f"></i>
+      <i class="fa-solid fa-qrcode " style="font-size: 17px; padding-left: 0px;" id="fa4"></i>
+
+
+</div>
+</div>
+</div>
+
+<!-- ######################  navbar-closed ######################### -->
+<style>
+  body {
+  background: #232323;
+  font-family: Roboto;
+}
+.progress {
+  width: 200px;
+  height: 200px;
+ 
+  transform: translate(-50%, -50%) rotateY(180deg);
+}
+.progress:before {
+  content: "";
+  /* position: absolute; */
+  width: 130px;
+  height: 130px;
+  background: #232323;
+  border-radius: 100%;
+  /* top: 50%;
+  left: 50%; */
+  transform: translate(-50%, -50%);
+  z-index: 99;
+}
+.progress:after {
+  content: "";
+  /* position: absolute; */
+  width: 8px;
+  height: 100px;
+  background: linear-gradient(180deg, #d63031, #232323);
+  border-radius: 10px;
+  box-shadow: 0 -19px 9px -3px #d63031;
+  top: 0;
+  right: 50%;
+  margin-right: -4px;
+  z-index: 999;
+  transform: rotate(90deg);
+  transform-origin: bottom;
+  animation-name: meter;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0, 0.1, 0.9, 0.81);
+  animation-play-state: paused;
+  animation-direction: reverse;
+  animation-delay: 5s;
+}
+.progress .precent {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  z-index: 99;
+  transform: translate(-50%, 0) rotateY(180deg);
+  font-size: 19px;
+  color: white;
+  width: 47px;
+  text-align: center;
+  line-height: 1.5;
+}
+.progress .precent:after {
+  content: "";
+  /* position: absolute; */
+  width: 35px;
+  height: 35px;
+  background: #323232;
+  border-radius: 100%;
+  top: 60px;
+  right: -20px;
+}
+.progress .precent:before {
+  content: "";
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  background: #323232;
+  border-radius: 100%;
+  top: 60px;
+  left: -25px;
+}
+.progress .circle {
+  width: 110px;
+  height: 100px;
+  background: white;
+  background: conic-gradient(
+    from 91deg,
+    #d63031 0%,
+    #ffffff 20%,
+    transparent 100%
+  );
+  -webkit-clip-path: polygon(
+    0% 100%,
+    0% 0%,
+    100% 0%,
+    100% 50%,
+    50% 50%,
+    100% 50%,
+    100% 100%
+  );
+  clip-path: polygon(
+    0% 100%,
+    0% 0%,
+    100% 0%,
+    100% 50%,
+    50% 50%,
+    100% 50%,
+    100% 100%
+  );
+  animation-name: loading;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0, 0.1, 0.9, 0.81);
+  animation-play-state: paused;
+  animation-direction: reverse;
+  animation-delay: 5s;
+  border-radius: 100%;
+}
+@keyframes loading {
+  0% {
+    -webkit-clip-path: polygon(
+      0% 100%,
+      0% 0%,
+      100% 0%,
+      100% 50%,
+      50% 50%,
+      100% 50%,
+      100% 100%
+    );
+    clip-path: polygon(
+      0% 100%,
+      0% 0%,
+      100% 0%,
+      100% 50%,
+      50% 50%,
+      100% 50%,
+      100% 100%
+    );
+  }
+  12.5% {
+    -webkit-clip-path: polygon(
+      0% 100%,
+      0% 0%,
+      100% 0%,
+      100% 50%,
+      50% 50%,
+      100% 100%,
+      100% 100%
+    );
+    clip-path: polygon(
+      0% 100%,
+      0% 0%,
+      100% 0%,
+      100% 50%,
+      50% 50%,
+      100% 100%,
+      100% 100%
+    );
+  }
+  25% {
+    -webkit-clip-path: polygon(
+      0% 100%,
+      0% 0%,
+      100% 0%,
+      100% 50%,
+      50% 50%,
+      50% 100%,
+      50% 100%
+    );
+    clip-path: polygon(
+      0% 100%,
+      0% 0%,
+      100% 0%,
+      100% 50%,
+      50% 50%,
+      50% 100%,
+      50% 100%
+    );
+  }
+  37.5% {
+    -webkit-clip-path: polygon(
+      0% 100%,
+      0% 0%,
+      100% 0%,
+      100% 50%,
+      50% 50%,
+      0% 100%,
+      0% 100%
+    );
+    clip-path: polygon(
+      0% 100%,
+      0% 0%,
+      100% 0%,
+      100% 50%,
+      50% 50%,
+      0% 100%,
+      0% 100%
+    );
+  }
+  50% {
+    -webkit-clip-path: polygon(
+      0% 50%,
+      0% 0%,
+      100% 0%,
+      100% 50%,
+      50% 50%,
+      0% 50%,
+      0% 50%
+    );
+    clip-path: polygon(
+      0% 50%,
+      0% 0%,
+      100% 0%,
+      100% 50%,
+      50% 50%,
+      0% 50%,
+      0% 50%
+    );
+  }
+  62.5% {
+    -webkit-clip-path: polygon(
+      0% 0%,
+      0% 0%,
+      100% 0%,
+      100% 50%,
+      50% 50%,
+      0% 0%,
+      0% 0%
+    );
+    clip-path: polygon(0% 0%, 0% 0%, 100% 0%, 100% 50%, 50% 50%, 0% 0%, 0% 0%);
+  }
+  75% {
+    -webkit-clip-path: polygon(
+      50% 0%,
+      50% 0%,
+      100% 0%,
+      100% 50%,
+      50% 50%,
+      50% 0%,
+      50% 0%
+    );
+    clip-path: polygon(
+      50% 0%,
+      50% 0%,
+      100% 0%,
+      100% 50%,
+      50% 50%,
+      50% 0%,
+      50% 0%
+    );
+  }
+  87.5% {
+    -webkit-clip-path: polygon(
+      100% 0%,
+      100% 0%,
+      100% 0%,
+      100% 50%,
+      50% 50%,
+      100% 0%,
+      100% 0%
+    );
+    clip-path: polygon(
+      100% 0%,
+      100% 0%,
+      100% 0%,
+      100% 50%,
+      50% 50%,
+      100% 0%,
+      100% 0%
+    );
+  }
+  100% {
+    -webkit-clip-path: polygon(
+      100% 50%,
+      100% 50%,
+      100% 50%,
+      100% 50%,
+      50% 50%,
+      100% 50%,
+      100% 50%
+    );
+    clip-path: polygon(
+      100% 50%,
+      100% 50%,
+      100% 50%,
+      100% 50%,
+      50% 50%,
+      100% 50%,
+      100% 50%
+    );
+  }
+}
+@keyframes meter {
+  0% {
+    transform: rotate(90deg);
+  }
+  25% {
+    transform: rotate(179deg);
+  }
+  50% {
+    transform: rotate(269deg);
+  }
+  75% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(450deg);
+  }
+}
+.progress .range {
+  margin-top: 20px;
+}
+.progress input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  background: transparent;
+}
+
+.progress input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+
+.progress input[type="range"]:focus {
+  outline: none;
+}
+
+.progress input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 100%;
+  background: white;
+  cursor: pointer;
+  margin-top: -6px;
+  z-index: 9;
+  position: relative;
+}
+
+.progress input[type="range"]::-moz-range-thumb {
+  height: 16px;
+  width: 16px;
+  border-radius: 100%;
+  background: white;
+  cursor: pointer;
+  border: 0;
+  z-index: 9;
+  position: relative;
+}
+
+.progress input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 5px;
+  cursor: pointer;
+  background: white;
+  border-radius: 20px;
+}
+
+.progress input[type="range"]::-moz-range-track {
+  width: 100%;
+  height: 5px;
+  cursor: pointer;
+  background: white;
+  border-radius: 20px;
+}
+
+</style>
+
+<div class="progress">
+  <div class="precent">50</div>
+  <div class="circle"></div>
+  <div class="range">
+    <input type="range" min="0" max="100" value="47" id="range">
+    <div class="filled"></div>
+  </div>
+</div>
+
+<script>
+  $(function () {
+  var range = $("#range")[0];
+  var percent = ((range.value - range.min) / (range.max - range.min)) * 5;
+  var percentshow = Math.round(
+    ((range.value - range.min) / (range.max - range.min)) * 100
+  );
+  if (percent < 5) {
+    $(".progress .circle").attr("style", "animation-delay:-" + percent + "s");
+    $("body").append(
+      "<div id='meterstyle'><style>.progress:after{animation-delay:-" +
+        percent +
+        "s;}</style></div>"
+    );
+  } else {
+    $(".progress .circle").attr("style", "animation-delay:5s");
+    $("body").append(
+      "<div id='meterstyle'><style>.progress:after{animation-delay:5s;}</style></div>"
+    );
+  }
+  $(".progress .precent").text(percentshow + " km/h");
+  $(document).on("input", "#range", function () {
+    var percent = ((this.value - this.min) / (this.max - this.min)) * 5;
+    var percentshow = Math.round(
+      ((this.value - this.min) / (this.max - this.min)) * 100
+    );
+    $("#meterstyle").remove();
+    if (percent < 5) {
+      $(".progress .circle").attr("style", "animation-delay:-" + percent + "s");
+      $("body").append(
+        "<div id='meterstyle'><style>.progress:after{animation-delay:-" +
+          percent +
+          "s;}</style></div>"
+      );
+    } else {
+      $(".progress .circle").attr("style", "animation-delay:5s");
+      $("body").append(
+        "<div id='meterstyle'><style>.progress:after{animation-delay:5s;}</style></div>"
+      );
+    }
+    $(".progress .precent").text(percentshow + " km/h");
+  });
+});
+
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

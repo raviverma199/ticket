@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="./static/login.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/static/images/hondologo.jpg">
+    <title>Tickting Dashboard login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+</head>
+<style>
+    * {
+        /* margin: 0; */
+        /* padding: 0; */
+        box-sizing: border-box;
+        /* align-items: center; */
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+
+    #nav {
+        background-color: #002244;
+        color: white;
+        font-size: 3.4vh;
+        box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 19px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px 0px;
+    }
+
+    #na {
+        background-color: #002244;
+        color: white;
+        font-size: 3vh;
+        position: fixed;
+        bottom: 0px;
+        box-shadow: 0px 0px 7px 0px black;
+    }
+
+    @media only screen and (max-width: 600px) {
+        #veh {
+            display: none;
+        }
+    }
+
+    /* #img {
+    animation: shake 3s infinite;
+}
+
+    @keyframes shake{
+    10% {transform: scale(1.05) rotate(5deg);}
+    20% {transform: scale(1.05) rotate(-5deg);}
+    30% {transform: scale(1.10) rotate(5deg);}
+    30% {transform: none;}
+} */
+</style>
+
+<body>
+    <div class="container-fluid  py-1 text-start" id="nav" style="font-size: 17.5px;">Ticketing Dashboard</div>
+    <!-- ######################### carsoule #############################-->
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-6" id="veh">
+                <div id="carouselExample" class="carousel slide">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="/static/image/login.jpg" width="80%" id="img" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="..." class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="..." class="d-block w-100" alt="...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 mt-3" style="padding-top: 40px; border-radius: 6px;">
+                <p style="font-size: 3vh;"><b>Enter your Username and Password to login:</b></p>
+
+
+                <form method="post" action="/auth">
+                    <div class="mb-3 my-2">
+                        <label class="py-1">Agent ID</label>
+                        <input type="text" class="form-control" id="name" name="username" placeholder="Enter Username"
+                            style="height: 35px;">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="user_password"
+                            placeholder="Enter Password" autocomplete="true" disabled style="height: 35px; ">
+                    </div>
+                    <div class="mb-3 form-check py-2">
+                        <input type="checkbox" class="form-check-input" onclick="hideShowPass()" id="exampleCheck1">
+                        <label class="form-check-label" for="exampleCheck1" style="font-size: 15px;">Show
+                            Password</label>
+
+                    </div>
+                    <button type="submit" class="btn" style="background-color: #002244; color: white;" id="btn"
+                        disabled>Submit</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <!-- ######################### carsoule-closed ############################# -->
+
+
+    <div class="container-fluid  py-2 text-end mt-2" id="na" style="font-size: 12.5px;">
+        <i class="fa-regular fa-copyright px-2" style="font-size: 10px;"></i>
+        Designed by Manthan IT Solutions , &nbsp;INC All right reserved
+
+    </div>
+</body>
+<script>
+    function hideShowPass() {
+        var x = document.getElementById("password");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>
+
+<script>
+
+    // form validation
+    var nm = document.getElementById("name");
+    var pass = document.getElementById("password");
+    var btn = document.getElementById("btn");
+
+    nm.addEventListener("input", function () {
+        if (nm.value.length > 0) {
+            pass.disabled = false
+        }
+        else {
+            pass.disabled = true
+        }
+
+        pass.addEventListener("input", function () {
+            if (pass.value.length > 0) {
+                btn.disabled = false
+            }
+            else {
+                btn.disabled = true
+            }
+        });
+    });
+// form-validation   closed
+
+
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+
+
+
+</html>

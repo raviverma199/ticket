@@ -1,0 +1,491 @@
+<%- include('../Views/left') %>
+
+
+  <style>
+    .dddd {
+      width: 100%;
+      height: 50px;
+    }
+
+    .dropdown {
+      text-align: justify;
+      padding-left: 0px;
+    }
+
+    #buttons {
+      text-align: end;
+      padding-left: 10px;
+
+    }
+
+    .enquiry_table th {
+      border: .5px solid grey;
+      padding: 6px;
+      text-align: center;
+      font-size: 13.5px;
+      background-color: #dfdfdf;
+
+    }
+
+    .enquiry_table td {
+      border: .5px solid grey;
+      padding: 4px;
+      text-align: center;
+      background-color: rgb(255, 255, 255);
+      font-size: 12px;
+
+    }
+  </style>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+
+  <!-- section 1 start -->
+  <div class="container-fluid mt-5"
+    style="background-color: white;border-radius: 5px;box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px 0px;"
+    id="head">
+    <div class="row">
+      <div class="col-lg-6  text-start" style="font-size: 1rem;font-weight: 500; padding: 9px 0px 0px 14px">
+        Dashboard</div>
+
+      <div class="col-lg-6 py-2 text-end d-flex justify-content-end" style="font-size: 13px;">
+        <!-- <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+          data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+          style="font-size: 13px; padding: 0px; width: 130px; height: 29px;">
+          <i class="fa-solid fa-user px-1"></i> All Agent
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div> -->
+        <div class='col-3' id="stage_filter_inp"><select
+            style="width: 80%; height:31px; border: 1px solid black;border-radius: 5px;display:inline-block; font-size: 13px;padding: 5px; margin-right: 10px;">
+            <option selected value="All">All Agents</option>
+            <option value="ravi verma">ravi verma</option>
+
+          </select>
+        </div>
+        <button class="btn btn-outline-dark"
+          style="height: 30px; text-align: center; width: 25px; height: 29px;padding: 0px;"><b>i</b></button>
+      </div>
+    </div>
+  </div>
+  <!-- section 1 start -->
+
+  <!-- section 1 start -->
+  <div class="container-fluid mt-1">
+    <div class="row">
+
+      <div class="col-lg-8  mt-2 rounded-2"
+        style="background-color: white; overflow: hidden;box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px 0px;"
+        id="chart">
+
+        <div class="row  rounded-4">
+          <div class="col-lg-6 " style="border-bottom: 2px solid rgb(128, 128, 128);">
+            <h6 style="font-size: 14px;padding-top: 10px;"><b>Ticket Response Trends</b></h6>
+          </div>
+          <div class="col-lg-6" style="border-bottom: 2px solid rgb(128, 128, 128);">
+            <div class="d-flex justify-content-evenly pt-2">
+              <div class="dropdown-toggle" id="dropdownMenuButton" type="button" data-bs-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false" style="font-size: 13px;">
+                All Channels
+              </div>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+
+              <div class="dropdown-toggle" id="dropdownMenuButton" type="button" data-bs-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false" style="font-size: 13px;">
+                Last 24 Hours
+              </div>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+
+            </div>
+
+
+          </div>
+        </div>
+
+
+        <div class="row mt-2" style="background-color: white;">
+          <div class="col-lg-6 text-center" style="font-size: 16px; color: green;overflow: hidden;">
+            <font size="3px">1</font> Incoming Responses
+          </div>
+          <div class="col-lg-6 text-center" style="font-size: 16px; color: rgb(74, 74, 238);" id="res">
+            <font size="3px">1</font> Outgoing Responses
+          </div>
+        </div><br>
+
+        <canvas id="myChart" style="width:850px; height: 300px;padding: 13px;"></canvas>
+
+
+      </div>
+
+
+
+
+
+      <div class="col-lg-3 mt-2 "
+        style="width: 31%;margin-left: 27px;background-color: white; box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px 0px;border-radius: 5px;"
+        id="traffic">
+        <div class="row " style="background-color:white; border-radius: 8px;">
+          <div class="d-flex justify-content-between align-items-center"
+            style="border-bottom: 2px solid rgb(128, 128, 128);">
+
+
+            <h6 style="font-size: 14px; padding-top: 11px;" class=""><b>Live Traffic</b></h6>
+            <h6 style="font-size: 14px; padding-top: 11px;" class=""><b>Last 1 hour Responses</b></h6>
+
+          </div>
+          <!-- bar graph -->
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-8 mt-4 d-flex justify-content-start">
+                <canvas id="Chart" width="800px" style="margin-right: 100px;"></canvas>
+
+              </div>
+              <div class="col-lg-3 mt-5 py-4 text-center" style="font-size: 18px;" id="out">Outgoing <br>
+                <font size="5px" color="blue">0</font>
+              </div>
+            </div>
+            <!-- second speedograph -->
+            <div class="row">
+              <div class="col-lg-8 mt-4">
+                <canvas id="hart" width="800px"></canvas>
+
+              </div>
+
+              <div class="col-lg-3 mt-4 py-4 text-center" style="font-size: 18px;" id="out">Incoming <br>
+                <font size="5px" color="green">1</font>
+              </div>
+            </div>
+          </div>
+
+          <!-- bar graph -->
+
+
+        </div>
+      </div>
+    </div>
+    <!-- section 1 closed -->
+
+    <!-- section-2 start -->
+    <div class="mt-3">
+      <divv class="row">
+        <div class="col-lg-8 py-2"
+          style="border-radius: 5px;background-color: white; font-size: 15px;box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px 0px;"
+          id="assign">
+          Unassigned Tickets
+
+          <div class="row ">
+            <div class="col-lg-3 mt-2" style="font-size: 14px;padding-top: 6px;" id="assig">
+              <i class="fa-regular fa-user px-1" style="font-size: 17px;"></i>
+              <font size="4px">0</font> Total Unassigned
+            </div>
+            <div class="col-lg-3 mt-2" style="font-size: 13px;" id="assig">
+              <font size="5px" color="orange">0</font> Unassigned On Hold
+            </div>
+            <div class="col-lg-3 mt-2" id="assig"
+              style="font-size: 13px; border-right: 2px solid  rgb(128, 128, 128);;">
+              <font size="5px" color="blue">0</font> Unassigned Open
+            </div>
+            <div class="col-lg-3 mt-3" style="font-size: 14px;padding: 0px;padding-bottom: 3px;" id="assig">
+              <i class="fa-sharp fa-solid fa-hourglass-start px-3" style="color: red;font-size: 15px;"></i>
+              <font size="4px">0</font> Due in 1 Hour
+            </div>
+          </div>
+
+        </div>
+        <div class="col-lg-3 py-2"
+          style="width: 30.8%;margin-left: 27px;box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px 0px; border-radius: 5px;background-color: white;"
+          id="emoji">
+          <div class="col-lg-12 mt-1 text-start">
+            <h6>Customer Happiness Rating</h6>
+          </div>
+          <div class="row">
+            <div class="col-lg-5 mt-1">
+              <i class="fa-regular fa-face-smile px-3" style="font-size: 30px; color: #48b400;"></i>
+              <font size="4px">0 %</font>
+            </div>
+            <div class="col-lg-6 mt-2" style="font-size: 14px;"><b>Good</b></div>
+          </div>
+        </div>
+    </div>
+  </div>
+  <!-- section-2 closed -->
+
+
+
+
+  <!-- ############  card-section start   ############## -->
+
+  <div class="container-fluid mt-2" style="margin-bottom: 30px;">
+    <div class="row justify-content-center">
+      <div class="col-lg-3 my-2"
+        style="background-color: white; border-radius: 6px; width: 25%;margin-right: 21px;box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px 0px;">
+
+        <div class="container-fluid" style="height: 400px;">
+          <div class="row" style="border-bottom: 2px solid rgb(204, 204, 204);">
+            <div class="col-lg-6 py-3" style="font-size: 14px; "><b>Online Agent (1)</b></div>
+            <div class="col-lg-6 text-end  py-2" style="font-size: 13.6px;">
+            </div>
+          </div>
+
+          <!-- <div class="row" style="border-bottom: 2px solid rgb(204, 204, 204);">
+            <div class="col-lg-6 py-2" style="font-size: 15px;">Agents</div>
+            <div class="col-lg-6 py-2" style="font-size: 14px; ">
+              <i class="fa-solid fa-ticket px-1"></i>
+              <i class="fa-regular fa-clock px-4"></i>
+              <i class="fa-solid fa-hourglass-start" style="color: red;"></i>
+            </div>
+          </div> -->
+          <table class="enquiry_table" width="100%" style="margin-top: 13px;">
+            <thead>
+              <tr>
+                <th>S.no</th>
+                <th>Agent ID</th>
+                <th>Agent name</th>
+              </tr>
+            </thead>
+            <% if(result1.length > 0 ) { %>
+              <tbody>
+                <% for(i=0; i<result1.length; i++) { %>
+                  <tr>
+                    <td>
+                      <%= i+1 %>
+                    </td>
+                    <td>
+                      <%= result1[i].agent_id %>
+                    </td>
+                    <td>
+                      <%= result1[i].agent_name %>
+                    </td>
+                  </tr>
+                  <% } %>
+              </tbody>
+              <% } else { %>
+                no record found
+                <% } %>
+          </table>
+        </div>
+
+
+      </div>
+      <div class="col-lg-3 my-2 "
+        style="background-color: white; border-radius: 6px; width: 24%;margin-right: 25px;box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px 0px;">
+        <div class="container-fluid py-3" style="font-size: 14px; border-bottom:  2px solid rgb(204, 204, 204);">
+          <b>Offline Agents (<span id="count"></span>)</b>
+        </div>
+
+        <table class="enquiry_table" width="100%" style="margin-top: 13px;">
+          <thead>
+            <tr>
+              <th>S.no</th>
+              <th>Agent ID</th>
+              <th>Agent name</th>
+            </tr>
+          </thead>
+          <% if(result1.length>0) { %>
+            <tbody>
+              <% for(i=0; i<result1.length; i++) { %>
+                <tr>
+                  <td>
+                    <%= i+1 %>
+                  </td>
+                  <td>
+                    <%= result1[i].agent_id %>
+                  </td>
+                  <td>
+                    <%= result1[i].agent_name %>
+                  </td>
+                </tr>
+                <% } %>
+            </tbody>
+            <% } else { %>
+              no record found
+              <% } %>
+        </table>
+
+
+      </div>
+      <div class="col-lg-3 my-2"
+        style="background-color: white;  border-radius: 6px; width: 23%;box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px 0px;">
+        <div class="container">
+          <div class="row" style="border-bottom: 2px solid rgb(204, 204, 204);">
+            <div class="col-lg-6 py-1" style="font-size: 13px;"><b>Most Threaded Tickets</b></div>
+            <div class="col-lg-6 py-3 text-end" style="font-size: 14px;">Top 25</div>
+          </div>
+        </div>
+        <p style="padding: 120px 0px 0px 60px; font-size: 17px;">No Data Available</p>
+      </div>
+      <div class="col-lg-3 my-2"
+        style="background-color: white;  border-radius: 6px; width: 22%;margin-left: 20px;box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px 0px;">
+        <div class="container">
+          <div class="row" style="border-bottom: 2px solid rgb(204, 204, 204);">
+            <div class="col-lg-6 py-3" style="font-size: 13px;"><b>Negative Rating</b></div>
+            <div class="col-lg-6 py-3 text-end" style="font-size: 14px;">Last 25</div>
+          </div>
+          <p style="padding: 120px 0px 0px 60px; font-size: 17px;">No Data Available</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+
+  <script>
+    var rows = 0
+    var rows = $('table').find("tr").length - 1
+    $('#rowCount').html('row')
+    document.getElementById('count').innerText = rows;
+    console.log('row number is: ' + rows)
+  </script>
+
+  <!-- ############  card-section start   ############## -->
+  <script>
+    $("#mmm").click(function () {
+      $("#hello").slideDown("slow");
+    });
+    $("#hello").hide();
+
+  </script>
+
+
+
+  <!-- Javascript codes for graph  -->
+  <script>
+    var xValues = [(11 + "AM"), (12 + "PM"), (1 + "PM"), (2 + "PM"), (3 + "PM"), (4 + "PM"), (5 + "PM"), (6 + "PM"), (7 + "PM"), (8 + "PM"), (9 + "PM"), (10 + "PM"), (11 + "PM"), (0 + "AM")
+      , (1 + "AM"), (2 + "AM"), (3 + "AM"), (4 + "AM"), (5 + "AM"), (6 + "AM"), (7 + "AM"), (8 + "AM")]
+    var yValues = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 11]
+
+    new Chart("myChart", {
+      type: "line",
+      data: {
+        labels: xValues,
+        datasets: [{
+          fill: false,
+          lineTension: 0,
+          backgroundColor: "rgba(0,0,255,1.0)",
+          borderColor: "rgba(0,0,255,0.1)",
+          data: yValues
+        }]
+      },
+      options: {
+        legend: { display: false },
+        scales: {
+          yAxes: [{ ticks: { min: 1, max: 20 } }]
+        }
+      }
+    });    
+  </script>
+
+  <!-- codes for side bar and navbar functionality  -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function (event) {
+      const showNavbar = (toggleId, navId, bodyId, headerId) => {
+        const toggle = document.getElementById(toggleId),
+          nav = document.getElementById(navId),
+          bodypd = document.getElementById(bodyId),
+          headerpd = document.getElementById(headerId)
+
+        // Validate that all variables exist
+        if (toggle && nav && bodypd && headerpd) {
+          toggle.addEventListener('click', () => {
+            // show navbar
+            nav.classList.toggle('show')
+            // change icon
+            toggle.classList.toggle('bx-x')
+            // add padding to body
+            bodypd.classList.toggle('body-pd')
+            // add padding to header
+            headerpd.classList.toggle('body-pd')
+          })
+        }
+      }
+
+      showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header')
+
+      /*===== LINK ACTIVE =====*/
+      const linkColor = document.querySelectorAll('.nav_link')
+
+      function colorLink() {
+        if (linkColor) {
+          linkColor.forEach(l => l.classList.remove('active'))
+          this.classList.add('active')
+        }
+      }
+      linkColor.forEach(l => l.addEventListener('click', colorLink))
+
+      // Your code to run since DOM is loaded and ready
+    });
+  </script>
+
+
+  <!-- javascript bar graph for incoming and outcoming the data -->
+  <script>
+    var ctx = document.getElementById('Chart').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: ['outgoing'],
+        datasets: [{
+          label: '# of Votes',
+          data: [1],
+          backgroundColor: [
+            'rgba(137, 196, 244)',
+
+          ],
+          borderColor: [
+            'rgba(44, 130, 201)',
+
+
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true
+      }
+    });
+
+  </script>
+  <script>
+    var ctx = document.getElementById('hart').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: ['Incoming '],
+        datasets: [{
+          label: '# of Votes',
+          data: [1],
+          backgroundColor: [
+            'rgba(3, 201, 169)',
+
+          ],
+          borderColor: [
+            'rgba(27, 163, 6)',
+
+
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true
+      }
+    });
+
+  </script>
+  </body>
+
+  </html>

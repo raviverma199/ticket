@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customers</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/black-tie/jquery-ui.min.css'
+    rel='stylesheet'>
+</head>
+
+<body>
+  <%- include('../Views/left') %>
+
+    <style>
+      .dropdown {
+        text-align: justify;
+        padding-left: 0px;
+      }
+
+      #buttons {
+        text-align: end;
+        padding-left: 10px;
+
+      }
+
+      .styled-table {
+        border-collapse: collapse;
+        margin: 17px 0;
+        font-size: 14px;
+        font-family: sans-serif;
+        min-width: 100%;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .styled-table thead tr {
+        background-color: #008d71;
+        color: #ffffff;
+        text-align: left;
+      }
+
+      .styled-table tbody tr {
+        border-bottom: 1px solid #dddddd;
+      }
+
+      .styled-table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+      }
+
+      .styled-table tbody tr:last-of-type {
+        border-bottom: 2px solid #0ac39e;
+      }
+
+      .styled-table {
+        /* Existing code */
+        text-align: center;
+      }
+
+      .styled-table th,
+      .styled-table td {
+        /* Existing code */
+        text-align: center;
+      }
+
+      .styled-table th,
+      .styled-table td {
+        padding: 10px 5px;
+      }
+
+      .styled-table tbody tr.active-row {
+        font-weight: bold;
+        color: #009879;
+      }
+
+      #edit {
+        cursor: pointer;
+      }
+
+      .btn-check:focus+.btn,
+      .btn:focus {
+        outline: 0;
+        box-shadow: 0 0 0 0 rgba(255, 241, 241, 0.25);
+      }
+
+      .dropdown {
+        text-align: justify;
+        padding-left: 30px;
+
+
+      }
+
+      #buttons {
+        text-align: end;
+        padding-left: 10px;
+
+      }
+
+      .card {
+        border-radius: 10px;
+        box-shadow: 0px 0px 5px skyblue;
+      }
+
+      @media only screen and (max-width: 1100px) {
+        .col-md-4 {
+          padding-top: 10px;
+        }
+      }
+
+      @media only screen and (max-width:608px) {
+        .styled-table {
+          overflow: hidden;
+        }
+      }
+
+
+      #blue {
+        background-color: rgba(85, 215, 255, 0.097);
+        border-top: 2px solid rgb(12, 36, 251);
+      }
+
+      #orange {
+        border-top: 2px solid rgb(255, 94, 0);
+        background-color: rgba(255, 166, 0, 0.173);
+      }
+
+      #green {
+        border-top: 2px solid green;
+        background-color: rgba(144, 238, 144, 0.415);
+      }
+
+      .col-lg-6 {
+        padding-top: 10px;
+      }
+
+      .last {
+        padding: 0px;
+        box-shadow: 0px 0px 4px rgb(72, 71, 71);
+        border-radius: 10px;
+        box-shadow: none;
+      }
+
+      .end {
+        padding-top: 0px;
+      }
+
+
+
+      hr:not([size]) {
+        height: 0px;
+      }
+
+
+
+      #myChart {
+
+
+        height: 300px !important;
+        padding: 20px !important;
+
+      }
+
+      /* @media only screen and(max-width:400px) {
+      #mychart {
+
+        width: 100%;
+        height: 200px;
+      }
+    } */
+
+      .svg {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+      }
+
+
+      @media only screen and (max-width: 988px) and (min-width: 500px) {
+        .circle {
+          width: 24%;
+          height: 65%;
+          border-radius: 50%;
+        }
+      }
+
+      /* .hour {
+    margin-top: 10px;
+  } */
+
+      @media only screen and (max-width:768px) {
+        .hour {
+          margin-top: 120px;
+        }
+      }
+    </style>
+    </head>
+
+    <body>
+
+
+
+
+
+      <!-- analytics -->
+      <div class="container-fluid mt-5"
+        style="box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px 0px;">
+
+        <div class="row bg-light"
+          style="border:1px solid rgb(251, 249, 249);border-radius: 7px; padding: 0px 0px 4px 0px; border-radius: 6px;">
+          <div class="col-md-6 col-lg-6 col-xl-6 " col-xl-6 id="dropdown">
+
+            <i class="fa-solid fa-list px-2" style="font-size: 17px;"></i><b style="font-size: 17px;">ToDo List</b>
+
+          </div>
+          <div class=" col-md-6 col-lg-6 col-xl-6 py-1" id="buttons" style="margin-top: 5px;">
+            <a href="/teamfeed"><button class="btn btn-outline-dark"
+                style="width: 19%;height: 28px; padding: 0px;font-size: 12px;margin-right: 10px;"><i
+                  class="fa-solid fa-square-plus px-2" style="font-size: 14px;"></i><b>Assign Ticket</b></button></a>
+
+
+
+
+          </div>
+        </div>
+
+
+      </div>
+
+      <div class="container-fluid">
+        <div class="row"
+          style="box-shadow: 0px 0px 5px rgb(214, 214, 214);margin-top: 10px; background-color: aliceblue;border-radius: 7px;box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px 0px;">
+
+
+          <div class="col-lg-11"
+            style="background-color: rgb(255, 255, 255); margin-top: 16px; box-shadow: 0px 0px 2px rgb(185, 183, 183); height: 47px; line-height: 4px;width: 97.8%;margin-left: 10px;">
+            <h5 style="font-size: 17px;padding-top: 15px;padding-left: 0px;">
+              <li class="fa-solid fa-ticket px-2" style="font-size: 15px;"></li>Ticket Status
+            </h5>
+          </div>
+          <div class="row lastrow"
+            style="background-color: white; width: 97.8%; margin-left: 10px; box-shadow: 0px 0px 2px gray; padding: 14px;">
+            <div class="col-lg-6 col-md-12 col-xl-3">
+              <div class="card" style="height: 3.4rem;" id="blue">
+                <div class="card-body" style="display: flex;">
+                  <h5 class="card-title" style="padding: 0px;"><span id="opencountticket"></span></h5>
+                  <h6 class="card-subtitle mb-2 text-muted"
+                    style="line-height: 30px;margin-left: 10px;font-size: 14px;">
+                    Active Ticket
+                    (Total)
+                  </h6>
+                  <h5 class="card-text"></h5>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-12 col-xl-3">
+              <div class="card" style="height: 3.4rem;" id="orange">
+                <div class="card-body" style="display: flex;">
+                  <h5 class="card-title" style="padding: 0px;"><span id="holdcountticket"></span></h5>
+                  <h6 class="card-subtitle mb-2 text-muted"
+                    style="line-height: 30px;margin-left: 10px;font-size: 14px;">
+                    On Hold
+                    Ticket(Total)</h6>
+
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-lg-6 col-md-12 col-xl-3">
+              <div class="card" style="height: 3.4rem;" id="green">
+                <div class="card-body" style="display: flex;">
+                  <h5 class="card-title" style="padding: 0px;"><span id="closecountticket"></span></h5>
+                  <h6 class="card-subtitle mb-2 text-muted"
+                    style="line-height: 30px;margin-left: 10px;font-size: 14px;">
+                    Closed
+                    Ticket(Total)</h6>
+
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-lg-6 col-md-12 col-xl-3">
+              <div class="card" style="height: 3.4rem;" id="">
+                <div class="card-body" style="display: flex; ">
+                  <h5 class="card-title" style="padding: 0px;"><span id="four">0</span></h5>
+                  <h6 class="card-subtitle mb-2 text-muted"
+                    style="line-height: 33px;margin-left: 10px;font-size: 14px;">
+                    Solved
+                    Ticket(Total)</h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="container-fluid" style="margin-top: 30px;">
+              <div class="row">
+
+                <div class="container ">
+                  <div class="row d-flex justify-content-end">
+                    <div class="col-lg-7">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="">From Date :</label>
+                          <input type="text" class="form-control"
+                            style=" margin-top: 4px;font-size: 13px;box-shadow: 0px 1px 10px rgb(211, 211, 211);"
+                            placeholder="DD-MM-YYYY" id="my_date_picker" class="data">
+                        </div>
+                        <div class="col-md-4">
+                          <label for="">To Date :</label>
+                          <input type="text" class="form-control"
+                            style="margin-top: 4px;font-size: 13px;box-shadow: 0px 1px 10px rgb(211, 211, 211);"
+                            placeholder="DD-MM-YYYY" id="my_date_picker2">
+                        </div>
+
+
+                        <div class="col-1 " style="margin-top: 20px;">
+                          <button type="button" class="btn btn-square-md" onclick="to_date()" id="date_filter"
+                            style="width: 38px !important;max-width: 100% !important;max-height: 100% !important;height: 35px !important;text-align: center;padding: 5px;color: aliceblue;font-size:15px;background-color:#002244;"><b>Go</b></button>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div class="container"></div> -->
+                    <div class="col-md-2">
+                      <label for="">Ticket Status :</label>
+                      <div id="stage_filter_inp"><select id="filterText" onchange="filterText()"
+                          style="width: 100%; height:34px; border: 1px solid #dfdfdf;border-radius: 5px;display:inline-block; font-size: 13px;box-shadow: 0px 1px 10px rgb(211, 211, 211);padding: 5px;margin-top: 3px;">
+                          <option selected value="All">All</option>
+                          <option value="Ravi verma">ravi verma</option>
+                          <option value="manish">manish</option>
+
+
+                        </select>
+                      </div>
+
+                    </div>
+                    <div class="col-md-3">
+                      <label for="">Smart Filter :</label>
+                      <input type="text" class="form-control " placeholder="Smart Search"
+                        style=" margin-top: 4px; font-size: 13px;box-shadow: 0px 1px 10px rgb(211, 211, 211);" name=""
+                        id="find_amd">
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="col-md-1 d-flex justify-content-end">
+                  
+                  <a href="/teamfeed" class="btn btn-outline-dark"
+                    style="padding-top: 3.6px; width: 40%; height: 28px;font-size: 13px;margin-top: 30px;"><b>Assign
+                      Ticket</b></a>
+                </div> -->
+              </div>
+            </div>
+
+
+            <div class="container-fluid ">
+              <div class="col-xl-12" style="overflow: auto;">
+                <table class="styled-table" id="example"
+                  style="box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px 0px;overflow: auto; ">
+                  <thead>
+                    <tr>
+                      <th>S.no</th>
+                      <th>Customer Name</th>
+                      <th>Email ID</th>
+                      <th>Ticket No</th>
+                      <th>Ticket Issue date</th>
+                      <th>Ticket Status</th>
+                      <th style="padding-left: 40px;">Action</th>
+
+                      <th></th>
+                    </tr>
+                  </thead>
+
+
+                  <tbody id="ivr_table">
+                    <% if (resultr.length===0) { %>
+                      <tr>
+                        <td colspan="7" style="text-align: center;font-size: 18px;">
+                          <li class="fa-solid fa-database" style="font-size: 20px;"></li><br>
+                          No data available
+                        </td>
+                      </tr>
+                      <% } else { %>
+                        <% for(i=0; i<resultr.length; i++) { %>
+                          <tr class="content">
+                            <td>
+                              <%= i+1 %>
+                            </td>
+                            <td class="gf">
+                              <%= resultr[i].name %>
+                            </td>
+                            <td class="gfg">
+                              <%= resultr[i].email %>
+                            </td>
+                            <td class="gfgg" id="anser_manual_01<%= i+1 %>">
+                              <%= resultr[i].ticket_no %>
+                            </td>
+                            <td style="padding-left: 26px;">
+                              <%= resultr[i].c_date %>
+                            </td>
+                            <td style="padding-left: 0px;">
+
+
+
+                              <% if(resultr[i].status=="Active" ) { %>
+                                <button class="btn btn-success" type="button" id="<%= resultr[i].status %>"
+                                  style="padding: 0px; width: 50%;font-size: 13px;height: 26px;">
+                                  <%= resultr[i].status %>
+                                </button>
+
+                                <% } else if(resultr[i].status=="closed" ) { %>
+                                  <button class="btn btn-danger" type="button" id="<%= resultr[i].status %>"
+                                    style="padding: 0px; width: 50%;font-size: 13px;height: 26px;">
+                                    <%= resultr[i].status %>
+                                  </button>
+
+                                  <% } else if(resultr[i].status=="hold" ) { %>
+                                    <button class="btn btn-warning" type="button" id="<%= resultr[i].status %>"
+                                      style="padding: 0px; width: 50%;font-size: 13px;height: 26px;">
+                                      <%= resultr[i].status %>
+
+                                    </button>
+
+
+                                    <% } else { %>
+                                      <button class="btn" type="button" id="<%= resultr[i].status %>"
+                                        style="padding: 0px; width: 40%;font-size: 13px;height: 25px;">
+                                        <%= resultr[i].status %>
+                                      </button>
+                                      <% } %>
+
+
+
+
+                            </td>
+                            <td>
+                              <!-- Button trigger modal -->
+                              <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <i class="fa-solid fa-pen-to-square px-3" id="edit" onclick="gfg(this)"
+                                  data-answer="anser_manual_01<%= i+1 %>"
+                                  style="color: black;font-size: 13px;"></i></button>
+
+                              <!-- Modal -->
+                              <div class="modal fade" id="exampleModal" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                  <div class="modal-content" style="width: 70%; margin-left: 90px;">
+                                    <div class="modal-header">
+                                      <h1 class="modal-title fs-5" id="exampleModalLabel" style="font-size: 14px;">Edit
+                                        Ticket Status</h1>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <div class="container mt-1">
+                                        <form method="post" action="/update/:status">
+                                          <div class="mb-1  col-12">
+                                            <label for="">Ticket number</label>
+                                            <input type="text" id="update_question" name="ticket_no"
+                                              style="width: 100%; height:34px; border: 1px solid #dfdfdf;border-radius: 5px; font-size: 13px;box-shadow: 0px 1px 10px rgb(211, 211, 211);padding: 5px;margin-top: 3px;">
+                                          </div>
+                                          <div class="mb-1  col-12" style="margin-top: 13px;">
+                                            <label for="exampleInputPassword1" class="form-label"
+                                              style="font-weight: 500;font-size: 14px;">Ticket Status</label>
+
+                                            <select id='filterText' name="status"
+                                              style="width: 100%; height:34px; border: 1px solid #dfdfdf;border-radius: 5px; font-size: 13px;box-shadow: 0px 1px 10px rgb(211, 211, 211);padding: 5px;margin-top: 1px;">
+
+                                              <option value="Active">Active</option>
+                                              <option value="hold">hold</option>
+                                              <option value="closed">closed</option>
+
+                                            </select>
+                                          </div>
+
+
+
+                                      </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+
+                                      <button type="submit" class="btn btn-dark">Submit</button>
+                                      </form>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <a href="/delete/<%= resultr[i].name %>"><i class="fa-solid fa-trash px-2"
+                                  style="color: black;font-size: 13px;"></i></a>
+
+
+                            </td>
+                          </tr>
+                          <% } %>
+                            <% } %>
+                  </tbody>
+                </table>
+
+              </div>
+            </div>
+          </div>
+          <!-- analytics -->
+
+
+
+
+
+          <script>
+            function gfg(e) {
+
+              let data_answer = document.getElementById(e.getAttribute("data-answer")).innerHTML
+
+              console.log(data_answer);
+              // document.getElementById("update_question").append =`hlow world`;
+              // $("#update_question").innerHTML(data_quest);
+              // $("#update_ans").html(data_answer);
+              document.getElementById('update_question').value = data_answer;
+              // document.getElementById('update_answer').value = data_quest;
+            }
+          </script>
+
+
+
+          <script>
+            function filterText() {
+              var rex = new RegExp($('#filterText').val());
+              if (rex == "/All/") { clearFilter() } else {
+                $('.content').hide();
+                $('.content').filter(function () {
+                  return rex.test($(this).text());
+                }).show();
+              }
+            };
+            function clearFilter() {
+              $('.filterText').val('');
+              $('.content').show();
+            }
+          </script>
+
+
+          <!-- edit the data through ajax -->
+
+          <!-- Datepicker UI -->
+          <script>
+            const table = document.getElementById('example');
+
+            let openCount = 0;
+            let closeCount = 0;
+            let holdCount = 0;
+
+            for (let i = 0; i < table.rows.length; i++) {
+
+              const statusCell = table.rows[i].cells[5];
+
+              if (statusCell.innerText === 'Active') {
+                openCount++;
+              } else if (statusCell.innerText === 'closed') {
+                closeCount++;
+              } else {
+                holdCount++;
+              }
+            }
+            var hold = holdCount - 1;
+
+
+            document.getElementById('opencountticket').innerText = openCount
+            document.getElementById('closecountticket').innerText = closeCount
+            document.getElementById('holdcountticket').innerText = hold
+
+
+          </script>
+
+
+          <script>
+            $(document).ready(function () {
+              $(function () {
+                $("#my_date_picker").datepicker({
+                  dateFormat: 'dd-mm-yy',//check change
+                  showButtonPanel: true,
+                  closeText: 'Reset', // Text to show for "close" button
+                  maxDate: "d"
+                });
+
+              });
+            });
+            $(document).ready(function () {
+              $(function () {
+                $("#my_date_picker2").datepicker({
+                  dateFormat: 'dd-mm-yy',//check change
+                  showButtonPanel: true,
+                  closeText: 'Reset', // Text to show for "close" button
+                  maxDate: "+d"
+                });
+
+              });
+            })
+          </script>
+          <script>
+            // const form = document.querySelector('form');
+            // form.addEventListener('submit', (event) => {
+            //   event.preventDefault();
+            //   const filter = document.querySelector('#filter').value;
+            // });
+          </script>
+
+          <script>
+            $(document).ready(function () {
+              $("#find_amd").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#ivr_table tr").filter(function () {
+                  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+                var letCount = $("#ivr_table tr td").length;
+
+              });
+            });
+          </script>
+
+          <script>
+            function to_date() {
+              let stage = document.getElementById("stage_filter").value;
+              let dateString1 = document.getElementById('my_date_picker').value;
+              let dateString = document.getElementById('my_date_picker2').value;
+              var a = dateString1.split("-");
+              var b = dateString.split("-");
+              let f_data = `${a[2]}-${a[1]}-${a[0]}`;
+              let to_data = `${b[2]}-${b[1]}-${b[0]}`;
+
+
+              //   date filter
+              $.ajax({
+                url: '/IVR_enquiry_date_filter',
+                method: 'POST',
+                dataType: 'json',
+                data: {
+                  stage: stage,
+                  f_date: f_data,
+                  to_date: to_data
+                },
+                success: function (result) {
+                  console.log(result.data[0])
+                  $('#ivr_table').html(" ");
+                  for (i = 0; i < result.data.length; i++) {
+                    var count = i + 1;
+                    $('#ivr_table').append(`<tr><td>${i + 1}</td><td> ${result.data[i].name} </td><td class="gfgrefnumber"> ${result.data[i].email}</td><td class="gfgmobilenumber">${result.data[i].ticket_no}</td><td>${result.data[i].c_date} </td><td>${result.data[i].status} </td><td> <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                              <a href="/edit"><i class="fa-solid fa-pen-to-square px-3" id="edit"
+                                  style="color: black;font-size: 13px;"></i></a></button></td><td><a href="/delete"><i class="fa-solid fa-trash px-2"
+                                style="color: black;font-size: 13px;"></i></a></td></tr>`);
+                  }
+                }
+
+              })
+            }
+
+            // Stage filter
+
+            $('#stage_filter').change(function () {
+              let stage_filter = document.getElementById('stage_filter').value;
+              $.ajax({
+                url: `/ivr_enquiry_stage_filter`,
+                type: "post",
+                dataType: "json",
+                data: {
+                  stage_filter: stage_filter
+                },
+                success: function (result) {
+                  $('#ivr_table').html('');
+                  for (i = 0; i < result.data.length; i++) {
+                    $('#ivr_table').append(`<tr><td>${i + 1}</td><td> ${result.data[i].name} </td><td class="gfgrefnumber"> ${result.data[i].email}</td><td class="gfgmobilenumber">${result.data[i].ticket_no}</td><td>${result.data[i].c_date} </td><td>${result.data[i].status} </td><td> <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                              <a href="/edit"><i class="fa-solid fa-pen-to-square px-3" id="edit"
+                                  style="color: black;font-size: 13px;"></i></a></button></td><td> ${result.data[i].product_type}</td><td><a href="/delete"><i class="fa-solid fa-trash px-2"
+                                style="color: black;font-size: 13px;"></i></a></td></tr>`);
+                  }
+                }
+              });
+            })
+          </script>
+          <script>
+            document.addEventListener("DOMContentLoaded", function (event) {
+
+              const showNavbar = (toggleId, navId, bodyId, headerId) => {
+                const toggle = document.getElementById(toggleId),
+                  nav = document.getElementById(navId),
+                  bodypd = document.getElementById(bodyId),
+                  headerpd = document.getElementById(headerId)
+
+                // Validate that all variables exist
+                if (toggle && nav && bodypd && headerpd) {
+                  toggle.addEventListener('click', () => {
+                    // show navbar
+                    nav.classList.toggle('show')
+                    // change icon
+                    toggle.classList.toggle('bx-x')
+                    // add padding to body
+                    bodypd.classList.toggle('body-pd')
+                    // add padding to header
+                    headerpd.classList.toggle('body-pd')
+                  })
+                }
+              }
+
+              showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header')
+
+              /*===== LINK ACTIVE =====*/
+              const linkColor = document.querySelectorAll('.nav_link')
+
+              function colorLink() {
+                if (linkColor) {
+                  linkColor.forEach(l => l.classList.remove('active'))
+                  this.classList.add('active')
+                }
+              }
+              linkColor.forEach(l => l.addEventListener('click', colorLink))
+
+              // Your code to run since DOM is loaded and ready
+            });
+          </script>
+
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+
+
+
+
+    </body>
+
+</html>

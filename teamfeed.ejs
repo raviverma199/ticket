@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team Feeds</title>
+  
+  
+</head>
+
+<body>
+  <%- include('../Views/left') %>
+    <style>
+      .styled-table {
+        border-collapse: collapse;
+        margin: 0px 0;
+        font-size: 14px;
+        font-family: sans-serif;
+        min-width: 100%;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+
+      }
+
+      .styled-table thead tr {
+        background-color: #008d71;
+        color: #ffffff;
+        text-align: left;
+
+      }
+
+      .styled-table tbody tr {
+        border-bottom: 1px solid #dddddd;
+      }
+
+      .styled-table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+      }
+
+      .styled-table tbody tr:last-of-type {
+        border-bottom: 2px solid #0ac39e;
+      }
+
+      .styled-table th,
+      .styled-table td {
+        padding: 10px 5px;
+      }
+
+      .styled-table tbody tr.active-row {
+        font-weight: bold;
+        color: #009879;
+      }
+
+      @media screen and (max-height: 600px) {
+        #modal {
+          width: 100%;
+        }
+      }
+
+      .hover-area {
+        position: relative;
+        display: inline-block;
+      }
+
+      .checkbox {
+        position: absolute;
+        top: 73.9%;
+        left: 54%;
+        transform: translate(-50%, -50%);
+        display: none;
+        
+
+      }
+      .checkbox{
+        width: 20px;
+  height: 28px;
+  
+      }
+
+      #close:hover .checkbox {
+        display: block;
+      }
+      /* #close:hover #fa {
+        display: none;
+      } */
+
+      .hover #fa {
+        display: block;
+      }
+    </style>
+
+
+
+    <div class="container-fluid mt-5" style="background-color: white;padding: 9px; font-size: 17px;border-radius: 7px;">
+      <div class="row">
+        <div class="col-lg-6"><i class="fa-solid fa-user-tie px-3" style="font-size: 17px;"></i>All Agents</div>
+
+        <div class="col-lg-6 d-flex justify-content-end">
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            style="padding-top: 5px; width: 18.8%; height: 30px;font-size: 13px;margin-right: 10px;">
+            <i class="fa-solid fa-ticket px-2"></i>Agent's
+          </button>
+
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content" style="width: 120%;" id="modal">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">All Agent's (<span id="count"></span>)</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="col-md-12 d-flex justify-content-end">
+                  <input type="text" class="form-control " placeholder="Smart Search"
+                    style=" margin-top: 6px;width: 30%;margin-right: 30px; font-size: 13px;box-shadow: 0px 1px 10px rgb(211, 211, 211);"
+                    name="" id="find_amd">
+                </div>
+                <div class="modal-body" style="overflow: auto;">
+                  <!-- #######  table  ######## -->
+
+                  <table class="styled-table" id="example">
+                    <thead>
+                      <tr>
+                        <th>S.no</th>
+                        <th>Agent ID</th>
+                        <th>Agent Name</th>
+                        <th>Status</th>
+                        <th>Assign Ticket</th>
+                      </tr>
+                    </thead>
+                    <% if(resultr.length>0) { %>
+                      <tbody id="ivr_table">
+                        <% for(i=0; i<resultr.length; i++) { %>
+                          <tr>
+                            <td id="one<%= i+1 %>">
+                              <%= i+1 %>
+                            </td>
+                            <td id="tw<%= i+1 %>">
+                              <%= resultr[i].agent_id %>
+                            </td>
+                            <td id="three<%= i+1 %>">
+                              <%= resultr[i].agent_name %>
+                            </td>
+                            <td>
+                              <% if(resultr[i].status=="Active" ) { %>
+                                <button class="btn btn-success" type="button" id="<%= resultr[i].status %>"
+                                  style="padding: 0px; width: 70%;font-size: 12px;height: 25px; ">
+                                  <%= resultr[i].status %>
+                                </button>
+                                <% } else if(resultr[i].status=="inactive" ) { %>
+                                  <button class="btn btn-danger" type="button" id="<%= resultr[i].status %>"
+                                    style="padding: 0px; width: 70%;font-size: 11.6px;height: 25px;">
+                                    <%= resultr[i].status %>
+                                  </button>
+                                  <% } else { %>
+                                    <button class="btn" type="button" id="<%= resultr[i].status %>"
+                                      style="padding: 0px; width: 40%;font-size: 13px;height: 25px;">
+                                      <%= resultr[i].status %>
+                                    </button>
+                                    <% } %>
+                            </td>
+                            <td>
+
+                              <input type="checkbox" id="checkbox1<%= i+1 %>" onclick="enableButton()"
+                                style="margin-left: 35px;" data-one="one<%= i+1 %>" data-two="two<%= i+1 %>"
+                                data-three="three<%= i+1 %>" value="data_0001">
+
+                            </td>
+                          </tr>
+                          <% } %>
+                      </tbody>
+                      <% } else { %>
+                        no record found
+                        <% } %>
+
+                  </table>
+
+
+                  <!-- #######  table  ######## -->
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                    style="font-size: 13px;height: 28px; width: 15%; padding: 0px;">Close</button>
+                  <button type="button" class="btn btn-primary" id="btn"
+                    style="font-size: 13px;height: 28px; width: 15%; padding: 0px;" onclick="gfg()"
+                    onclick="submitData(this)" data-one="1" data-two="2" data-three="3" type="submit">Submit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <a href="/customers" class="btn btn-outline-dark"
+            style="padding-top: 5px; width: 9%; height: 30px;font-size: 13px;"><b>Back</b></a>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ############### today assign ticket ################## -->
+    <div class="container-fluid mt-3 py-2" style="border-radius: 6px;background-color: white;font-size: 15px;">
+      <b>Assign Ticket</b> -&nbsp;(<span id="currentDate"></span>)
+      <div class="container-fluid mt-2" id="close" style="background-color: white;border-radius: 6px;">
+      </div>
+
+    </div>
+
+
+    <script>
+      $(document).ready(function () {
+        $("tr").click(function () {
+          var checkbox = $(this).find("input[type='checkbox']");
+          checkbox.prop("checked", !checkbox.prop("checked"));
+        });
+      });
+
+      // script for enable and disable the checkbox input =====>
+      function toggleOtherCheckboxes(event) {
+        // Get the checkbox that was clicked
+        var clickedCheckbox = event.target.closest('tr').querySelector('input[type="checkbox"]');
+
+        // Get all the other checkboxes on the page
+        var allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
+
+        // Toggle the disabled state of all other checkboxes except for the one that was clicked
+        for (var i = 0; i < allCheckboxes.length; i++) {
+          var checkbox = allCheckboxes[i];
+          if (checkbox != clickedCheckbox) {
+            checkbox.disabled = !checkbox.disabled;
+          }
+        }
+      }
+
+    </script>
+
+    <script>
+      function submitData() {
+        let selectvalue = [];
+        let dataone = [];
+        $('input:checkbox[name=checkbox1]:checked').each(function () {
+          selectvalue.push($(this).val("id"));
+          let data_001 = $(this).data("one");
+          let data_002 = $(this).data("two");
+          let data_002_value = document.getElementById(data_002).innerHTML;
+          let data_003 = document.getElementById($(this).data("three")).innerHTML;
+          let data_004 = document.getElementById($(this).data("four")).innerHTML;
+          console.log(data_002_value, data_003, data_004)
+        })
+      }
+
+    </script>
+
+    <!-- sweetalert -->
+    <script>
+      function cl() {
+        Swal.fire({
+          title: 'OK!',
+          text: 'Ticket Assign succesfully.',
+          ButtonText: 'OK',
+          position: 'top',
+          width: '30%',
+          height: '10%'
+        });
+      }
+    </script>
+    <script>
+      $(document).ready(function () {
+        $("#find_amd").on("keyup", function () {
+          var value = $(this).val().toLowerCase();
+          $("#ivr_table tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+          var letCount = $("#ivr_table tr td").length;
+
+        });
+      });
+    </script>
+
+    <script>
+      $(document).ready(function () {
+        $('#submit').on('click', function () {
+          setTimeout(() => {
+            var agent_id = document.getElementById('agent_id').innerText
+            var agent_name = document.getElementById('agent_id').innerText
+            // var email = document.getElementById('email').value;
+            console.log(agent_id);
+            console.log(agent_id);
+            $.ajax({
+              url: '/checkbox',
+              method: 'post',
+              data: {
+                agent_id: agent_id,
+                agent_name: agent_name,
+
+              },
+              success: function (result) {
+
+              }
+            })
+
+          }, 4000);
+        })
+      })
+    </script>
+
+
+    
+    <script>
+
+      $.ajax({
+
+        type: "GET",
+        dataType: "JSON",
+        url: `/ticketing`,
+        success: function (data) {
+          for (i = 0; i < data.result.length; i++) {
+            $('#close').append(`
+                    <div class="row">
+          <div class="col-lg-6 border-bottom border-1 border-dark" id="ticket" >
+
+            <div class="container">
+              <div class="row">
+                <div class="col-lg-1" style="font-size: 14px;"><b>
+                      <div class="hover-area">
+                        <i class="fa-solid fa-user-tie px-1" id="fa" style="font-size:20px;padding-top:30px;"></i>
+  <input type="checkbox" name="checkbox1" class="checkbox" id="checkbox1${i + 1}" data-one="one${i + 1}" data-two="tw${i + 1}"  data-three="thr${i + 1}" data-four="fo${i + 1}" value="data_0001">
+</div>
+                      </b></div>
+                      
+                <div class="col-lg-10 py-3" style="font-size: 14px;">
+                  <font size="3.5px"><span id="two${i + 1}">${data.result[i].name}</span></font><br>
+
+                  #<font color="red"><span id="thr${i + 1}">${data.result[i].ticket_no}</span></font>&nbsp;&nbsp;&nbsp;.${data.result[i].name}&nbsp;&nbsp;&nbsp;.easygosms&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i
+                    class="fa-solid fa-clock-rotate-left px-2" style="font-size: 14px;"></i>${data.result[i].c_date}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 justify-content-center d-flex border-bottom border-1 border-dark"
+            style="padding-top: 32px;border-bottom: 2px solid rgb(179, 179, 179);">
+            <div id="stage_filter_inp"><select id="filter"
+                style="width: 115%; height:30px; border: 1px solid #dfdfdf;border-radius: 5px; font-size: 12px;padding: 5px;margin-top: 0px;">
+                <option value="Active">Active</option>
+                <option value="on hold">hold</option>
+                <option value="Closed">closed</option>
+
+              </select>
+            </div>
+            
+
+            <a href="/delete/${data.result[i].ticket_no}"><i class="fa-solid fa-trash" style="margin-left: 45px;margin-top: 0px;font-size:14px;cursor:pointer; color:black;"></i></a>
+          </div>
+                   `);
+
+          }
+
+        }
+      });
+    </script>
+
+    </script>
+
+
+    <!-- Assgin value through ajax -->
+    <script>
+      $(document).ready(function () {
+        var i = 0;
+        $(document).on('click', '#btn', function () {
+
+          var user_name = document.getElementById(`two${i + 1}`).innerText;
+          var ticket_id = document.getElementById(`thr${i + 1}`).innerText;
+          var agent_id = document.getElementById(`tw${i + 1}`).innerText;
+          var agent_name = document.getElementById(`three${i + 1}`).innerText;
+          i++
+
+          console.log(name, ticket)
+          $.ajax({
+            url: '/post',
+            method: 'post',
+            dataType: 'JSON',
+            data: {
+              user_name: user_name,
+              ticket_id: ticket_id,
+              agent_id: agent_id,
+              agent_name: agent_name,
+
+            },
+            success: function (data) {
+
+            }
+          })
+        })
+      })
+    </script>
+
+    <!-- sweet alert function -->
+    <script>
+      function gfg() {
+        swal("Successfull!", "Ticket has been Assigned!", "success");
+      }
+      const refreshButton = document.getElementById("btn");
+
+refreshButton.addEventListener("click", function() {
+  setTimeout(function() {
+    location.reload();
+  }, 2000); // delay in milliseconds
+});
+    </script>
+
+
+    <script>
+      function submitData(e) {
+        let selectvalue = [];
+        let dataone = [];
+        $('input:checkbox[name=checkbox1]:checked').each(function () {
+          selectvalue.push($(this).val("id"));
+          let data_001 = $(this).data("one");
+          let data_002 = $(this).data("two");
+          let data_002_value = document.getElementById(data_002)
+          let data_003 = document.getElementById($(this).data("three"))
+          let data_004 = document.getElementById($(this).data("four"))
+          console.log(data_002_value, data_003, data_004,)
+        })
+      }
+
+    </script>
+    <script>
+
+      // To Get the current date ===========>
+
+      let today = new Date();
+      let currentDate = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+      document.getElementById("currentDate").innerHTML = currentDate;
+
+    </script>
+
+    <script>
+      var rows = 0
+      var rows = $('table').find("tr").length - 1
+      $('#rowCount').html('row')
+      document.getElementById('count').innerText = rows;
+      console.log('row number is: ' + rows)
+    </script>
+
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function (event) {
+
+        const showNavbar = (toggleId, navId, bodyId, headerId) => {
+          const toggle = document.getElementById(toggleId),
+            nav = document.getElementById(navId),
+            bodypd = document.getElementById(bodyId),
+            headerpd = document.getElementById(headerId)
+
+          // Validate that all variables exist
+          if (toggle && nav && bodypd && headerpd) {
+            toggle.addEventListener('click', () => {
+              // show navbar
+              nav.classList.toggle('show')
+              // change icon
+              toggle.classList.toggle('bx-x')
+              // add padding to body
+              bodypd.classList.toggle('body-pd')
+              // add padding to header
+              headerpd.classList.toggle('body-pd')
+            })
+          }
+        }
+
+        showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header')
+
+        /*===== LINK ACTIVE =====*/
+        const linkColor = document.querySelectorAll('.nav_link')
+
+        function colorLink() {
+          if (linkColor) {
+            linkColor.forEach(l => l.classList.remove('active'))
+            this.classList.add('active')
+          }
+        }
+        linkColor.forEach(l => l.addEventListener('click', colorLink))
+
+        // Your code to run since DOM is loaded and ready
+      });
+    </script>
+
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</body>
+
+</html>
